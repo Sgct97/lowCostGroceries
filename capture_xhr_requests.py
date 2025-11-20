@@ -146,10 +146,14 @@ try:
                 
                 # Look for ALL types if it contains callback or relevant keywords
                 if 'google.com' in url:
-                    # CRITICAL: Capture ALL async/callback URLs regardless of type!
+                    # CRITICAL: Capture ALL async URLs to see what we're getting!
                     if '/async/callback' in url or '/async/bgasy' in url:
+                        # Log whether it's clean or dirty
+                        is_clean = '_basejs' not in url and '_basecss' not in url and '_basecomb' not in url
+                        clean_status = "CLEAN" if is_clean else "DIRTY"
+                        
                         xhr_requests.append((url, resource_type))
-                        logger.info(f"🎯🎯🎯 {resource_type} REQUEST (CALLBACK):")
+                        logger.info(f"🎯🎯🎯 {resource_type} REQUEST ({clean_status}):")
                         logger.info(f"   {url[:150]}...\n")
                     # Also capture XHR/Fetch for other endpoints
                     elif resource_type in ['XHR', 'Fetch']:

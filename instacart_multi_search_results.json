@@ -1,0 +1,143 @@
+{
+  "eggs_10001": [
+    {
+      "name": "Kirkland Signature Free Range Large Eggs Usda Grade A, 24-count",
+      "brand": "kirkland signature",
+      "size": "each",
+      "product_id": "items_3281-38687871",
+      "price": "$4.84",
+      "available": true,
+      "stock_level": "inStock"
+    },
+    {
+      "name": "Kirkland Signature Free-Range Organic Eggs, Large, 24-count",
+      "brand": "kirkland signature",
+      "size": "each",
+      "product_id": "items_3281-19232685",
+      "price": "$9.57",
+      "available": true,
+      "stock_level": "inStock"
+    },
+    {
+      "name": "Kirkland Signature Eggs, Large, 5 dozen-count",
+      "brand": "pearl valley farms, inc.",
+      "size": "each",
+      "product_id": "items_3281-19232662",
+      "price": "$11.81",
+      "available": true,
+      "stock_level": "highlyInStock"
+    },
+    {
+      "name": "Kirkland Signature Eggs, Large, 24-count",
+      "brand": "kirkland signature",
+      "size": "each",
+      "product_id": "items_3281-3308878",
+      "price": "$4.84",
+      "available": false,
+      "stock_level": "outOfStock"
+    },
+    {
+      "name": "Organic Free Range Grade A Medium Eggs, 24-count",
+      "brand": "contented hen",
+      "size": "each",
+      "product_id": "items_3281-50000333",
+      "price": "$9.44",
+      "available": false,
+      "stock_level": "outOfStock"
+    }
+  ],
+  "bread_90210": [
+    {
+      "name": "Sara Lee Artesano Bread, 20 oz, 2-count",
+      "brand": "sara lee baking group",
+      "size": "each",
+      "product_id": "items_3281-3210895",
+      "price": "$6.58",
+      "available": true,
+      "stock_level": "highlyInStock"
+    },
+    {
+      "name": "Nature's Own Butter Bread, 20 oz, 2 count",
+      "brand": "nature's own",
+      "size": "each",
+      "product_id": "items_3281-18446702",
+      "price": "$6.83",
+      "available": true,
+      "stock_level": "highlyInStock"
+    },
+    {
+      "name": "Dave's Killer Bread Organic 21 Whole Grain, 27 oz, 2-count",
+      "brand": "la tortilla factory-bbs",
+      "size": "each",
+      "product_id": "items_3281-123051",
+      "price": "$10.44",
+      "available": true,
+      "stock_level": "highlyInStock"
+    },
+    {
+      "name": "Nature's Own Honey Wheat Bread, 20 oz, 2 count",
+      "brand": "lepage bakeries park st",
+      "size": "each",
+      "product_id": "items_3281-16658256",
+      "price": "$6.83",
+      "available": true,
+      "stock_level": "highlyInStock"
+    },
+    {
+      "name": "Pepperidge Farm 15 Grain Whole Grain Bread, 24 oz, 2-count",
+      "brand": "pepperidge farm",
+      "size": "each",
+      "product_id": "items_3281-2722244",
+      "price": "$7.08",
+      "available": true,
+      "stock_level": "highlyInStock"
+    }
+  ],
+  "milk_60601": [
+    {
+      "name": "Kirkland Signature Whole Milk, 1 gal",
+      "brand": "kirkland signature",
+      "size": "each",
+      "product_id": "items_3281-16902650",
+      "price": "$3.63",
+      "available": true,
+      "stock_level": "highlyInStock"
+    },
+    {
+      "name": "Kirkland Signature Organic Whole Milk, Half Gallon, 3-count",
+      "brand": "kirkland signature",
+      "size": "each",
+      "product_id": "items_3281-21150792",
+      "price": "$15.29",
+      "available": true,
+      "stock_level": "highlyInStock"
+    },
+    {
+      "name": "Kirkland Signature Organic 2% Reduced Fat Milk, Half Gallon, 3-count",
+      "brand": "kirkland signature",
+      "size": "each",
+      "product_id": "items_3281-21150814",
+      "price": "$15.29",
+      "available": true,
+      "stock_level": "highlyInStock"
+    },
+    {
+      "name": "Lactaid Reduced Fat 2% Milk, 2.8 L",
+      "brand": "lactaid",
+      "size": "each",
+      "product_id": "items_3281-16408615",
+      "price": "$6.08",
+      "available": true,
+      "stock_level": "highlyInStock"
+    },
+    {
+      "name": "Kirkland Signature Organic Whole Milk, 8 fl oz, 18-count",
+      "brand": "kirkland signature",
+      "size": "each",
+      "product_id": "items_3281-43992750",
+      "price": "$19.89",
+      "available": true,
+      "stock_level": "highlyInStock"
+    }
+  ]
+}

@@ -1,0 +1,142 @@
+[
+  {
+    "name": "X-AB",
+    "value": "6713f91aa6094a0c883748eae4694069",
+    "domain": "sc-static.net"
+  },
+  {
+    "name": "_GRECAPTCHA",
+    "value": "09ADiQh0dQQ8PghMX4Jk9CiZCPOKcn6iOH8x4_GbwFobrRczaYlkcbm5e_I2yxfGV1dwKa3iqE0Lua4NTZFyygPA0",
+    "domain": "www.google.com"
+  },
+  {
+    "name": "device_uuid",
+    "value": "3f354dbe-a4bb-4881-8a69-458b4a3a2e1d",
+    "domain": "www.instacart.com"
+  },
+  {
+    "name": "ahoy_visit",
+    "value": "B4636D22-d2f0-4ff4-a2bb-f5256b10b784",
+    "domain": "www.instacart.com"
+  },
+  {
+    "name": "ahoy_visitor",
+    "value": "31F6AA6A-442d-4d54-871a-598416141438",
+    "domain": "www.instacart.com"
+  },
+  {
+    "name": "aws-waf-token",
+    "value": "789b8f02-62d2-420c-bf05-c72aff8ccf7b:EQoAgtEJKny2AAAA:8bHmZrMBqx1pPbHQUGPIM8716m1CIUoQl75qDuDezlv2HwM7qXing3qRu3PYB4meqGZzQdtjcx+uuSfhQvYzJSl8ILFZUtdVjGWws83ANhyPC223GSvV686ZzNSCWbdxHfbKoDhfotOcNXGEpOA3hBh7puwOhIdsVJ024Yf1yJwoesm1dZqIfW9u0j8Pr8e7SC8fhoHelP88SGrJpR79",
+    "domain": ".www.instacart.com"
+  },
+  {
+    "name": "build_sha",
+    "value": "fd57a5997cce78881c6d06d1de90841f84a4e733",
+    "domain": "www.instacart.com"
+  },
+  {
+    "name": "fpc_bpm",
+    "value": "9340febd-109e-4682-9ac3029d2cbb6f8e",
+    "domain": ".instacart.com"
+  },
+  {
+    "name": "_gcl_au",
+    "value": "1.1.231137599.1763602107",
+    "domain": ".instacart.com"
+  },
+  {
+    "name": "g_state",
+    "value": "{\"i_l\":0,\"i_ll\":1763602107111,\"i_b\":\"+gBWqwPHtFZQ4TWlAWz+ePGXBNkkTHGMJU3fRkB4xxQ\"}",
+    "domain": "www.instacart.com"
+  },
+  {
+    "name": "pt",
+    "value": "v2:86e53d71c2af57c9a0701027cf45f96954081780dd6bd49b9c26728bbcec8b9f|99531c740bf77fd77411fa4fd232f9e417de8c888fa0c9fa56baacd8159aee78",
+    "domain": ".ispot.tv"
+  },
+  {
+    "name": "_scid",
+    "value": "pNEOW0osE4UiI5g5uz2G3Knmyt3lSuGQ",
+    "domain": ".instacart.com"
+  },
+  {
+    "name": "_scid_r",
+    "value": "pNEOW0osE4UiI5g5uz2G3Knmyt3lSuGQ",
+    "domain": ".instacart.com"
+  },
+  {
+    "name": "_uetsid",
+    "value": "36d38c20c5b011f0b84ec32c3b14832f",
+    "domain": ".instacart.com"
+  },
+  {
+    "name": "_uetvid",
+    "value": "36d3a780c5b011f09ddd4922c2812e1a",
+    "domain": ".instacart.com"
+  },
+  {
+    "name": "MUID",
+    "value": "08ED9D869AC86F8E272A8B2C9BD26EC7",
+    "domain": ".bing.com"
+  },
+  {
+    "name": "MR",
+    "value": "0",
+    "domain": ".bat.bing.com"
+  },
+  {
+    "name": "_ScCbts",
+    "value": "%5B%5D",
+    "domain": ".instacart.com"
+  },
+  {
+    "name": "_ttp",
+    "value": "35ioAGuYCnEdepBdPksGuc75wTx",
+    "domain": ".tiktok.com"
+  },
+  {
+    "name": "_tt_enable_cookie",
+    "value": "1",
+    "domain": ".instacart.com"
+  },
+  {
+    "name": "_ttp",
+    "value": "01KAFE1379HXDMST8X84DZ3766_.tt.1",
+    "domain": ".instacart.com"
+  },
+  {
+    "name": "sc_at",
+    "value": "v2|H4sIAAAAAAAAAE3GwQ0AIQgEwIpIWIEF7ObixSos3q/zml6d24dJpEPcoqVIl6ht+NdXyjpwnUgadUDzPNULKY2HmkAAAAA=",
+    "domain": ".snapchat.com"
+  },
+  {
+    "name": "TapAd_TS",
+    "value": "1763602107816",
+    "domain": ".tapad.com"
+  },
+  {
+    "name": "TapAd_DID",
+    "value": "dc232681-79c3-4233-bff3-c3de05e0f681",
+    "domain": ".tapad.com"
+  },
+  {
+    "name": "TapAd_3WAY_SYNCS",
+    "value": "",
+    "domain": ".tapad.com"
+  },
+  {
+    "name": "ttcsid",
+    "value": "1763602107627::13t_NsGsrh5cSWCw1nt4.1.1763602107844.0",
+    "domain": ".instacart.com"
+  },
+  {
+    "name": "ttcsid_D23SJ1JC77U5781IKE5G",
+    "value": "1763602107627::Zmef5QUHw8XaNUx7A3MX.1.1763602107844.0",
+    "domain": ".instacart.com"
+  },
+  {
+    "name": "_sctr",
+    "value": "1%7C1763528400000",
+    "domain": ".instacart.com"
+  }
+]

@@ -1,0 +1,157 @@
+{
+  "request": {
+    "url": "https://www.instacart.com/graphql?operationName=SearchCrossRetailerGroupResults&variables=%7B%22overrideFeatureStates%22%3A%5B%5D%2C%22searchSource%22%3A%22cross_retailer_search%22%2C%22query%22%3A%22milk%22%2C%22pageViewId%22%3A%224d1a4c38-e30d-45f9-816e-99af44775091%22%2C%22shopIds%22%3A%5B%22196391%22%2C%2210369%22%2C%2232776%22%2C%22195621%22%2C%2211187%22%2C%22768122%22%2C%2238406%22%2C%2240035%22%2C%227660%22%2C%2210846%22%2C%2210847%22%2C%2216644156%22%2C%2216646003%22%2C%22436%22%2C%2216643310%22%2C%2216644639%22%2C%2215591%22%2C%2215592%22%2C%22195754%22%2C%2224422%22%2C%2232629%22%2C%2217519%22%2C%225485%22%2C%2210391%22%2C%2212120%22%2C%2233679%22%2C%22602111%22%2C%2233090%22%2C%2263576%22%2C%2216646471%22%2C%22285309%22%2C%2234844%22%2C%2298836%22%2C%2231141%22%2C%2213712%22%2C%2227680%22%2C%2214002%22%2C%22175904%22%2C%22131222%22%2C%2219998%22%2C%22126722%22%2C%22363775%22%2C%22128333%22%2C%22179001%22%2C%22204184%22%2C%22219358%22%2C%22272138%22%2C%2216644792%22%2C%22301896%22%2C%22350995%22%2C%22349655%22%2C%22370397%22%2C%22369655%22%2C%22376748%22%2C%22375630%22%2C%22382682%22%2C%22409868%22%2C%22521545%22%2C%22501865%22%2C%22500022%22%2C%22505853%22%2C%22605038%22%2C%22553653%22%2C%22550428%22%2C%22604406%22%2C%2216635391%22%2C%2216641074%22%2C%2216639588%22%2C%228349%22%5D%2C%22disableAutocorrect%22%3Afalse%2C%22includeDebugInfo%22%3Afalse%2C%22autosuggestImpressionId%22%3Anull%2C%22first%22%3A7%2C%22shopId%22%3A%220%22%2C%22zoneId%22%3A%22169%22%2C%22postalCode%22%3A%2233704%22%7D&extensions=%7B%22persistedQuery%22%3A%7B%22version%22%3A1%2C%22sha256Hash%22%3A%2251136c220cd153a5730345b5d25f272d3783c3afe366ef2646d598fc44db231f%22%7D%7D",
+    "method": "GET",
+    "headers": {
+      "sec-ch-ua-platform": "\"macOS\"",
+      "referer": "https://www.instacart.com/store/s?k=milk",
+      "sec-ch-ua": "\"Chromium\";v=\"141\", \"Not?A_Brand\";v=\"8\"",
+      "sec-ch-ua-mobile": "?0",
+      "x-page-view-id": "07e1b47d-5e5d-58ad-b2a0-217fef26701d",
+      "x-client-user-id": "18577146139435396",
+      "x-client-identifier": "web",
+      "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36",
+      "accept": "*/*",
+      "content-type": "application/json"
+    },
+    "resource_type": "fetch"
+  },
+  "cookies": [
+    {
+      "name": "X-AB",
+      "value": "6713f91aa6094a0c883748eae4694069"
+    },
+    {
+      "name": "ahoy_visit",
+      "value": "F1BF69CF-f5fa-4938-bec2-601da884e024"
+    },
+    {
+      "name": "ahoy_visitor",
+      "value": "330038B1-9613-446a-9f32-3a20188ea433"
+    },
+    {
+      "name": "bradius",
+      "value": "rate_limit_on"
+    },
+    {
+      "name": "aws-waf-token",
+      "value": "789b8f02-62d2-420c-bf05-c72aff8ccf7b:EQoAfYMU0AuVAAAA:JlnRnIYXbAzmQuarYhklijoZc1rWVF70+L7q57b4KF9mZEZJgfbYYIOxVXNbJQLlPks0xE//7IG3D5gYZQb75tYwCzbjcuf8Ql4neK062jL2fC/K6hV95/a02eY9BAmFsrWFB+3r3HZJHTcI+5DC5fkBrKc0q8rb0WWsnDEImxL9DTKKa4CNILPHQpNLzjko3OsQYOgkcE9MLF3w+vYQ1Fo1"
+    },
+    {
+      "name": "device_uuid",
+      "value": "960636f2-bbe2-46ae-a1ba-92066de0be61"
+    },
+    {
+      "name": "__Host-instacart_sid",
+      "value": "v2.41ffd0e494e184.umtKj0DQirgAQqKZs4Zo0BXwDgkQ_ReJhhy1nhMgsTo"
+    },
+    {
+      "name": "X-IC-bcx",
+      "value": "1"
+    },
+    {
+      "name": "_dd_s",
+      "value": "aid=7a5df1f1-2e13-4020-bc34-6438d051be4d&logs=0&expire=1763609162482"
+    },
+    {
+      "name": "build_sha",
+      "value": "0bd91aa464e6b4e26321f537f3ce3ebc44af8f76"
+    },
+    {
+      "name": "fpc_bpm",
+      "value": "02b711af-e9a6-4114-8f134792724e830e"
+    },
+    {
+      "name": "_gcl_au",
+      "value": "1.1.334915997.1763608264"
+    },
+    {
+      "name": "pt",
+      "value": "v2:59e5d6f7a376a375a85875abdae5b2cadacfc549770224f8ef9fdbcd8eccd701|99531c740bf77fd77411fa4fd232f9e417de8c888fa0c9fa56baacd8159aee78"
+    },
+    {
+      "name": "_scid",
+      "value": "16eqMSt0OScUEEzvQERR9eq8ZrPH4Piu"
+    },
+    {
+      "name": "_scid_r",
+      "value": "16eqMSt0OScUEEzvQERR9eq8ZrPH4Piu"
+    },
+    {
+      "name": "_uetsid",
+      "value": "8c544940c5be11f0ada87b6c535d5867"
+    },
+    {
+      "name": "_uetvid",
+      "value": "8c544130c5be11f0b9404fff8b00d9a1"
+    },
+    {
+      "name": "MUID",
+      "value": "2B8DB15236AB68020755A7F837156988"
+    },
+    {
+      "name": "MR",
+      "value": "0"
+    },
+    {
+      "name": "_ttp",
+      "value": "35j0dsBr170yQvFJJttBUme2NZT"
+    },
+    {
+      "name": "_ScCbts",
+      "value": "%5B%5D"
+    },
+    {
+      "name": "_tt_enable_cookie",
+      "value": "1"
+    },
+    {
+      "name": "_ttp",
+      "value": "01KAFKWZDT81Q0STBB2Z4GW9HV_.tt.1"
+    },
+    {
+      "name": "sc_at",
+      "value": "v2|H4sIAAAAAAAAAE3GwRHAIAwDsIlyl5jYBbYpJVswfL/opY1viNWN0Gu5a9jCaianiKCzcCJ9xqMm71Ceq/4DBwfghEAAAAA="
+    },
+    {
+      "name": "TapAd_TS",
+      "value": "1763608264242"
+    },
+    {
+      "name": "TapAd_DID",
+      "value": "0a93ae83-80bc-4628-b4e9-0d349cb77dc6"
+    },
+    {
+      "name": "TapAd_3WAY_SYNCS",
+      "value": ""
+    },
+    {
+      "name": "_sctr",
+      "value": "1%7C1763528400000"
+    },
+    {
+      "name": "m",
+      "value": "d035f5e8-cfd6-4115-bf49-11b9e4a3f4ace0c788"
+    },
+    {
+      "name": "__stripe_mid",
+      "value": "4744df27-d926-4790-9b73-415082506ee4ca7d77"
+    },
+    {
+      "name": "__stripe_sid",
+      "value": "1ab6e4a2-9df2-4595-aacc-38a3dd9bda3176b399"
+    },
+    {
+      "name": "ttcsid",
+      "value": "1763608264124::yzb0qm6n-qdwKbQfyMno.1.1763608264705.0"
+    },
+    {
+      "name": "ttcsid_D23SJ1JC77U5781IKE5G",
+      "value": "1763608264124::jnmOkstSENh2BmS_E603.1.1763608264705.0"
+    },
+    {
+      "name": "forterToken",
+      "value": "7b644e587e04484ab77808afc4b6b221_1763608262291__UDF43-m4_24ck_"
+    }
+  ]
+}

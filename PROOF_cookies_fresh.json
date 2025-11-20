@@ -1,0 +1,184 @@
+{
+  "timestamp": "2025-11-19T22:23:11.635267",
+  "cookies": [
+    {
+      "name": "X-AB",
+      "value": "6713f91aa6094a0c883748eae4694069",
+      "domain": "sc-static.net"
+    },
+    {
+      "name": "ahoy_visit",
+      "value": "0DABFE87-bcf6-4bf3-aaec-5703160038a2",
+      "domain": "www.instacart.com"
+    },
+    {
+      "name": "ahoy_visitor",
+      "value": "808FB456-27b0-44be-8142-00241eb380a7",
+      "domain": "www.instacart.com"
+    },
+    {
+      "name": "bradius",
+      "value": "rate_limit_on",
+      "domain": "www.instacart.com"
+    },
+    {
+      "name": "aws-waf-token",
+      "value": "789b8f02-62d2-420c-bf05-c72aff8ccf7b:EQoAobMXc0ImAAAA:JRqRnHjqnXzDFmKaSZqAAkPBGxZBro4vnxO6qNkzpljGCBlAll/PE1etl9aCCPFpUmU4I/RLd2IYix/M5/cCXP139zdWEo7RgxZtkPGlTRnvcm5EO6Du15iqJnspxkAYXB5SUEuOIYOBP4+izS1hVc1eCiHymB7CiuQY1BkB6EL8EyFRbAuYQNmgXMSlOICT0wL6ZG3NE4LWfAzcKks1fDG+",
+      "domain": ".www.instacart.com"
+    },
+    {
+      "name": "device_uuid",
+      "value": "7888fed8-a6f6-4d49-9bca-177b146f887d",
+      "domain": "www.instacart.com"
+    },
+    {
+      "name": "__Host-instacart_sid",
+      "value": "v2.41ffe1b77e785c.R0Z84W1EA70FZP88JO5BJzLhZJDNr_O0CdRYkn3829c",
+      "domain": "www.instacart.com"
+    },
+    {
+      "name": "X-IC-bcx",
+      "value": "1",
+      "domain": "www.instacart.com"
+    },
+    {
+      "name": "_dd_s",
+      "value": "aid=764e82fe-1238-4d62-9f05-88ca8d09899f&logs=0&expire=1763609885577",
+      "domain": "www.instacart.com"
+    },
+    {
+      "name": "build_sha",
+      "value": "f4c1e459d2f2904963949ef52c2ba50aba02e00e",
+      "domain": "www.instacart.com"
+    },
+    {
+      "name": "fpc_bpm",
+      "value": "e85d9278-33d3-4484-85f27c7189d04c8f",
+      "domain": ".instacart.com"
+    },
+    {
+      "name": "_gcl_au",
+      "value": "1.1.326491343.1763608986",
+      "domain": ".instacart.com"
+    },
+    {
+      "name": "pt",
+      "value": "v2:f0dc2ee7c743c6c743708d1863f972ce52cd53358c6da53d82128fc7e1f411ec|99531c740bf77fd77411fa4fd232f9e417de8c888fa0c9fa56baacd8159aee78",
+      "domain": ".ispot.tv"
+    },
+    {
+      "name": "_ttp",
+      "value": "35j26kGuPgjUvNgTzfHUc1vt5Au",
+      "domain": ".tiktok.com"
+    },
+    {
+      "name": "_scid",
+      "value": "hPA8QQlcZC1CTeOMWTs2qKoF-MOl0zut",
+      "domain": ".instacart.com"
+    },
+    {
+      "name": "_scid_r",
+      "value": "hPA8QQlcZC1CTeOMWTs2qKoF-MOl0zut",
+      "domain": ".instacart.com"
+    },
+    {
+      "name": "_uetsid",
+      "value": "3b3e1680c5c011f089511f0a57e7eb31",
+      "domain": ".instacart.com"
+    },
+    {
+      "name": "_uetvid",
+      "value": "3b3e0c50c5c011f09bc5093888ed217c",
+      "domain": ".instacart.com"
+    },
+    {
+      "name": "MUID",
+      "value": "186935EAC96262440B7B2340C8786336",
+      "domain": ".bing.com"
+    },
+    {
+      "name": "MR",
+      "value": "0",
+      "domain": ".bat.bing.com"
+    },
+    {
+      "name": "_tt_enable_cookie",
+      "value": "1",
+      "domain": ".instacart.com"
+    },
+    {
+      "name": "_ttp",
+      "value": "01KAFMK13P0F36PGTS660BH03J_.tt.1",
+      "domain": ".instacart.com"
+    },
+    {
+      "name": "_ScCbts",
+      "value": "%5B%5D",
+      "domain": ".instacart.com"
+    },
+    {
+      "name": "m",
+      "value": "cafafdf4-bc93-4801-b2f8-708a34a11d701eb6b8",
+      "domain": "m.stripe.com"
+    },
+    {
+      "name": "TapAd_TS",
+      "value": "1763608987115",
+      "domain": ".tapad.com"
+    },
+    {
+      "name": "TapAd_DID",
+      "value": "4d1050bf-d76e-491a-89c3-d95c3d45f7cf",
+      "domain": ".tapad.com"
+    },
+    {
+      "name": "__stripe_mid",
+      "value": "1c85f66a-37d8-4096-ab36-e64a60a9c3ae4ab430",
+      "domain": ".www.instacart.com"
+    },
+    {
+      "name": "__stripe_sid",
+      "value": "f1655fc4-494e-424b-9fd2-6f0a530ae545488b16",
+      "domain": ".www.instacart.com"
+    },
+    {
+      "name": "TapAd_3WAY_SYNCS",
+      "value": "",
+      "domain": ".tapad.com"
+    },
+    {
+      "name": "sc_at",
+      "value": "v2|H4sIAAAAAAAAAE3GyQ2AMBADwIpWspO9oJvEiCpSPF/mNVwdCLVx8DEfmLbeCtsJyaWt0KHjZuVM9NV1fsUHKcAlS0AAAAA=",
+      "domain": ".snapchat.com"
+    },
+    {
+      "name": "ttcsid_D23SJ1JC77U5781IKE5G",
+      "value": "1763608986743::Keu_-0HmSO9K-ShkerZR.1.1763608987283.0",
+      "domain": ".instacart.com"
+    },
+    {
+      "name": "ttcsid",
+      "value": "1763608986744::eX6sfvH5eKWZus5wYLiH.1.1763608987283.0",
+      "domain": ".instacart.com"
+    },
+    {
+      "name": "_sctr",
+      "value": "1%7C1763528400000",
+      "domain": ".instacart.com"
+    },
+    {
+      "name": "forterToken",
+      "value": "91bcec34bee44b2dafdfcd1c14e2db6e_1763608984723__UDF43-m4_24ck_",
+      "domain": ".instacart.com"
+    }
+  ],
+  "headers": {
+    "accept": "*/*",
+    "content-type": "application/json",
+    "referer": "https://www.instacart.com/store/s?k=milk",
+    "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36",
+    "x-client-identifier": "web",
+    "x-client-user-id": "18577146139435396"
+  },
+  "url": "https://www.instacart.com/graphql?operationName=SearchCrossRetailerGroupResults&variables=%7B%22overrideFeatureStates%22%3A%5B%5D%2C%22searchSource%22%3A%22cross_retailer_search%22%2C%22query%22%3A%22milk%22%2C%22pageViewId%22%3A%22d4a46069-eae2-4431-bd5c-49f8b7f15731%22%2C%22shopIds%22%3A%5B%22196391%22%2C%2210369%22%2C%2232776%22%2C%22195621%22%2C%2211187%22%2C%22768122%22%2C%2238406%22%2C%2240035%22%2C%227660%22%2C%2210846%22%2C%2210847%22%2C%2216644156%22%2C%2216646003%22%2C%22436%22%2C%2216643310%22%2C%2216644639%22%2C%2215591%22%2C%2215592%22%2C%22195754%22%2C%2224422%22%2C%2232629%22%2C%2217519%22%2C%225485%22%2C%2210391%22%2C%2212120%22%2C%2233679%22%2C%22602111%22%2C%2233090%22%2C%2263576%22%2C%2216646471%22%2C%22285309%22%2C%2234844%22%2C%2298836%22%2C%2231141%22%2C%2213712%22%2C%2227680%22%2C%2214002%22%2C%22175904%22%2C%22131222%22%2C%2219998%22%2C%22126722%22%2C%22363775%22%2C%22128333%22%2C%22179001%22%2C%22204184%22%2C%22219358%22%2C%22272138%22%2C%2216644792%22%2C%22301896%22%2C%22350995%22%2C%22349655%22%2C%22370397%22%2C%22369655%22%2C%22376748%22%2C%22375630%22%2C%22382682%22%2C%22409868%22%2C%22521545%22%2C%22501865%22%2C%22500022%22%2C%22505853%22%2C%22605038%22%2C%22553653%22%2C%22550428%22%2C%22604406%22%2C%2216635391%22%2C%2216641074%22%2C%2216639588%22%2C%228349%22%5D%2C%22disableAutocorrect%22%3Afalse%2C%22includeDebugInfo%22%3Afalse%2C%22autosuggestImpressionId%22%3Anull%2C%22first%22%3A7%2C%22shopId%22%3A%220%22%2C%22zoneId%22%3A%22169%22%2C%22postalCode%22%3A%2233704%22%7D&extensions=%7B%22persistedQuery%22%3A%7B%22version%22%3A1%2C%22sha256Hash%22%3A%2251136c220cd153a5730345b5d25f272d3783c3afe366ef2646d598fc44db231f%22%7D%7D"
+}

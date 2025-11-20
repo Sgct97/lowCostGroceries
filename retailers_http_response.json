@@ -1,0 +1,69 @@
+{
+  "retailers": [
+    {
+      "id": "129",
+      "name": "Instacart Demo",
+      "slug": "demo",
+      "logo": {
+        "url": "https://d2lnr5mha7bycj.cloudfront.net/warehouse/logo/129/5e37c860-9fd4-46ee-90da-cc8925c2c7f4.png",
+        "alt": "Instacart Demo",
+        "responsive": {
+          "template": "https://www.instacart.com/image-server/{width}x/d2lnr5mha7bycj.cloudfront.net/warehouse/logo/129/5e37c860-9fd4-46ee-90da-cc8925c2c7f4.png",
+          "defaults": {
+            "width": 96
+          }
+        },
+        "sizes": []
+      },
+      "background_color": "#60ab59",
+      "attributes": [
+        "recommended"
+      ],
+      "green_badge": null,
+      "services": [],
+      "price_transparency": {
+        "label": "Everyday store prices",
+        "color": "#43B02A",
+        "kind": "same",
+        "description": "Item prices for this retailer reflect the average in-store prices in your area. Items on sale in the store may not be on sale through the Instacart platform. Prices and availability are based on available data feeds, subject to delays or errors and may change without notice. As a result, the in-store price of a particular item at the time a purchase is made, including for weighted items, may differ from what is available through the Instacart platform."
+      },
+      "categories": "",
+      "categories_formatted_text": {
+        "strings": [],
+        "action": null,
+        "alt": null
+      },
+      "hero_image": {
+        "url": "https://d2lnr5mha7bycj.cloudfront.net/warehouse/background_image/129/6fc22b1b-da77-4543-a734-257dc09ddba7.jpg",
+        "alt": "Instacart Demo",
+        "responsive": {
+          "template": "https://www.instacart.com/image-server/{width}x/filters:quality({quality})/d2lnr5mha7bycj.cloudfront.net/warehouse/background_image/129/6fc22b1b-da77-4543-a734-257dc09ddba7.jpg",
+          "defaults": {
+            "width": 1920,
+            "quality": 50
+          }
+        },
+        "sizes": []
+      },
+      "retailer_type": "Grocery - Traditional",
+      "wind_down_container_path": null
+    }
+  ],
+  "retailer_price_transparency": {
+    "129": {
+      "label": "Everyday store prices",
+      "color": "#43B02A",
+      "kind": "same",
+      "description": "Item prices for this retailer reflect the average in-store prices in your area. Items on sale in the store may not be on sale through the Instacart platform. Prices and availability are based on available data feeds, subject to delays or errors and may change without notice. As a result, the in-store price of a particular item at the time a purchase is made, including for weighted items, may differ from what is available through the Instacart platform."
+    }
+  },
+  "retailer_categories": [],
+  "retailer_tracking_params": {
+    "129": {
+      "warehouse_id": "129",
+      "inventory_area_id": null
+    }
+  },
+  "disclaimer": "Instacart is an independent business that is not necessarily affiliated with, endorsed or sponsored by the retailers mentioned here.",
+  "pickup_promo": null
+}

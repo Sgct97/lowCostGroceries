@@ -1,169 +1,97 @@
-import requests
-from bs4 import BeautifulSoup
-import json
-import re
+"""
+TEST THE PAGINATION ENDPOINT - THE BREAKTHROUGH!
 
-def test_pagination_endpoint():
-    """Test the potential pagination/more results endpoint"""
+This URL has q= as a modifiable parameter!
+"""
+
+from curl_cffi import requests
+import re
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+PROXY_HOST = "isp.oxylabs.io"
+PROXY_PORT = "8001"
+PROXY_USER = os.getenv("PROXY_USER")
+PROXY_PASS = os.getenv("PROXY_PASS")
+
+proxies = {
+    "http": f"http://{PROXY_USER}:{PROXY_PASS}@{PROXY_HOST}:{PROXY_PORT}",
+    "https": f"http://{PROXY_USER}:{PROXY_PASS}@{PROXY_HOST}:{PROXY_PORT}",
+} if PROXY_USER else None
+
+# Simplified version of the pagination URL
+base_url = "https://www.google.com/search"
+
+# Key parameters
+params = {
+    'q': 'QUERY_PLACEHOLDER',
+    'udm': '28',
+    'hl': 'en',
+    'gl': 'us',
+    'start': '0',
+    'sa': 'N',
+    'async': 'arc_id:test,_fmt:pc'
+}
+
+headers = {
+    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+    'Accept': '*/*',
+    'Accept-Language': 'en-US,en;q=0.9',
+    'Referer': 'https://www.google.com/',
+    'Sec-Fetch-Dest': 'empty',
+    'Sec-Fetch-Mode': 'cors',
+    'Sec-Fetch-Site': 'same-origin',
+}
+
+print("\n" + "="*80)
+print("TESTING PAGINATION ENDPOINT WITH DIFFERENT QUERIES")
+print("="*80 + "\n")
+
+test_queries = ['milk', 'eggs', 'bread']
+
+for query in test_queries:
+    print(f"\nTesting: {query.upper()}")
+    print("-" * 60)
     
-    print("="*80)
-    print("TESTING PAGINATION ENDPOINT")
-    print("="*80)
-    
-    # Base URL
-    base_url = "https://www.google.com/search"
-    
-    # Key parameters extracted from your URL
-    params = {
-        'q': 'milk',
-        'tbm': 'shop',
-        'start': '30',  # Pagination offset
-        'sa': 'N',
-        'async': 'arc_id:srp_test,ffilt:all,ve_name:MoreResultsContainer,_fmt:pc'
-    }
-    
-    headers = {
-        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36',
-        'Accept': '*/*',
-        'Referer': 'https://www.google.com/search?q=milk&tbm=shop',
-        'X-Requested-With': 'XMLHttpRequest',
-    }
-    
-    print(f"\nURL: {base_url}")
-    print(f"Params: {params}")
-    print("\n" + "="*80)
+    # Build URL with this query
+    params['q'] = query
+    url = base_url + '?' + '&'.join([f'{k}={v}' for k, v in params.items()])
     
     try:
-        response = requests.get(base_url, params=params, headers=headers, timeout=15)
+        response = requests.get(
+            url,
+            headers=headers,
+            proxies=proxies,
+            impersonate="chrome120",
+            timeout=30
+        )
         
-        print(f"✅ Status: {response.status_code}")
-        print(f"Content-Type: {response.headers.get('Content-Type')}")
-        print(f"Response size: {len(response.text):,} bytes")
+        print(f"Status: {response.status_code}")
+        print(f"Size: {len(response.text):,} bytes")
         
-        # Save response
-        with open('/Users/spensercourville-taylor/htmlfiles/lowCostGroceries/pagination_response.html', 'w') as f:
-            f.write(response.text)
-        print("💾 Saved to: pagination_response.html")
+        # Look for prices
+        prices = re.findall(r'\$[0-9,]+\.[0-9]{2}', response.text)
+        print(f"Prices found: {len(prices)}")
         
-        # Check if it starts with XSSI protection
-        content = response.text
-        if content.startswith(')]}\''):
-            print("\n✅ Found XSSI protection prefix - this is an API response!")
-            content = content[4:]
-            
-            # Try to parse as JSON
-            try:
-                data = json.loads(content)
-                print("\n🎉 SUCCESS! It's JSON!")
-                print(f"Type: {type(data)}")
-                
-                if isinstance(data, dict):
-                    print(f"Keys: {list(data.keys())}")
-                elif isinstance(data, list):
-                    print(f"Array length: {len(data)}")
-                
-                # Save JSON
-                with open('/Users/spensercourville-taylor/htmlfiles/lowCostGroceries/pagination_data.json', 'w') as f:
-                    json.dump(data, f, indent=2)
-                print("💾 Saved JSON to: pagination_data.json")
-                
-            except json.JSONDecodeError:
-                print("Not standard JSON format")
+        # Check if query term appears in results
+        query_mentions = response.text.lower().count(query.lower())
+        print(f"'{query}' mentioned: {query_mentions} times")
         
-        # Look for product data patterns
-        print("\n" + "="*80)
-        print("Looking for product data patterns...")
-        print("="*80)
-        
-        # Parse with BeautifulSoup
-        soup = BeautifulSoup(response.text, 'html.parser')
-        
-        # Look for product cards
-        product_indicators = {
-            'Price elements': len(soup.find_all(string=re.compile(r'\$\d+'))),
-            'Product divs': len(soup.find_all('div', class_=re.compile(r'product|item|card', re.I))),
-            'Images': len(soup.find_all('img')),
-            'Links': len(soup.find_all('a')),
-        }
-        
-        print("\nElement counts:")
-        for key, count in product_indicators.items():
-            print(f"  {key}: {count}")
-            if count > 0:
-                print(f"    ✅ Found {count} elements!")
-        
-        # Check raw text for product terms
-        sample = response.text[:2000].lower()
-        keywords = ['price', 'product', 'merchant', 'title', 'store', 'buy']
-        found = [k for k in keywords if k in sample]
-        
-        if found:
-            print(f"\n✅ Found keywords in response: {found}")
-        
-        return True
+        if len(prices) > 0:
+            print(f"✅ Sample prices: {prices[:5]}")
         
     except Exception as e:
         print(f"❌ Error: {e}")
-        import traceback
-        traceback.print_exc()
-        return False
 
-def test_simplified_async():
-    """Test with minimal async parameters"""
-    
-    print("\n" + "="*80)
-    print("TESTING SIMPLIFIED ASYNC REQUEST")
-    print("="*80)
-    
-    url = "https://www.google.com/search"
-    
-    params = {
-        'q': 'milk',
-        'tbm': 'shop',
-        'start': '10',
-        'async': '_fmt:json'  # Try requesting JSON format
-    }
-    
-    headers = {
-        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36',
-        'Accept': 'application/json, */*',
-        'Referer': 'https://www.google.com/search?q=milk&tbm=shop',
-    }
-    
-    try:
-        response = requests.get(url, params=params, headers=headers, timeout=10)
-        print(f"Status: {response.status_code}")
-        print(f"Size: {len(response.text):,} bytes")
-        print(f"Content-Type: {response.headers.get('Content-Type')}")
-        
-        # Check if it's JSON
-        if 'json' in response.headers.get('Content-Type', '').lower():
-            print("✅ JSON response!")
-            try:
-                data = response.json()
-                print(f"Data type: {type(data)}")
-                with open('/Users/spensercourville-taylor/htmlfiles/lowCostGroceries/async_json.json', 'w') as f:
-                    json.dump(data, f, indent=2)
-                print("💾 Saved to: async_json.json")
-            except:
-                pass
-        
-    except Exception as e:
-        print(f"Error: {e}")
+print("\n" + "="*80)
+print("CONCLUSION")
+print("="*80 + "\n")
 
-if __name__ == "__main__":
-    print("""
-    ╔══════════════════════════════════════════════════════════════════════════╗
-    ║           TESTING THE PAGINATION/MORE RESULTS ENDPOINT                   ║
-    ║           (You might have found it!)                                     ║
-    ╚══════════════════════════════════════════════════════════════════════════╝
-    """)
-    
-    success = test_pagination_endpoint()
-    test_simplified_async()
-    
-    print("\n" + "="*80)
-    if success:
-        print("✅ Test completed - check the saved files!")
-    print("="*80)
-
+print("If prices found for all queries:")
+print("  🎉 WE CAN SCRAPE ANY PRODUCT WITHOUT BROWSER AUTOMATION!")
+print("  🎉 curl_cffi + this endpoint = SCALABLE SOLUTION!")
+print("\nIf 0 prices:")
+print("  Need to refine parameters or use full URL structure")
+print("="*80 + "\n")

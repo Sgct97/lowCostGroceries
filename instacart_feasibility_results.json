@@ -1,0 +1,61 @@
+{
+  "basic_access": {
+    "success": true,
+    "status_code": 200,
+    "has_content": true,
+    "anti_bot": false,
+    "api_endpoints": []
+  },
+  "search_endpoint": {
+    "tested_urls": 4,
+    "results": []
+  },
+  "graphql": {
+    "graphql_available": false,
+    "results": []
+  },
+  "store_api": {
+    "results": [
+      {
+        "url": "https://www.instacart.com/v3/retailers",
+        "has_data": true,
+        "data_preview": "{'retailers': [{'id': '129', 'name': 'Instacart Demo', 'slug': 'demo', 'logo': {'url': 'https://d2lnr5mha7bycj.cloudfront.net/warehouse/logo/129/5e37c860-9fd4-46ee-90da-cc8925c2c7f4.png', 'alt': 'Inst"
+      }
+    ]
+  },
+  "mobile_api": {
+    "results": [
+      {
+        "url": "https://www.instacart.com/api/mobile/v1/search",
+        "status": 404,
+        "accessible": false
+      },
+      {
+        "url": "https://www.instacart.com/mobile/v2/search",
+        "status": 404,
+        "accessible": false
+      },
+      {
+        "url": "https://www.instacart.com/api/v1/search",
+        "status": 404,
+        "accessible": false
+      }
+    ]
+  },
+  "product_page": {
+    "results": [
+      {
+        "url": "https://www.instacart.com/products/1234567890",
+        "status": 202,
+        "embedded_json_count": 0
+      },
+      {
+        "url": "https://www.instacart.com/store/items/eggs",
+        "status": 202,
+        "embedded_json_count": 0
+      }
+    ]
+  },
+  "feasibility_score": 2,
+  "verdict": "MODERATE FEASIBILITY - Possible but challenging"
+}

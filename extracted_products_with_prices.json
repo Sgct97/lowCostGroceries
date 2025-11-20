@@ -1,0 +1,812 @@
+[
+  {
+    "__typename": "ViewFormattedAttributesStringSection",
+    "id": "2b98ac56",
+    "name": null,
+    "navigation": null,
+    "styles": {
+      "__typename": "ViewFormattedAttributesStringStyles",
+      "backgroundColor": null,
+      "color": "systemGrayscale80",
+      "colorHex": null,
+      "highlight": null,
+      "id": "62d20be0",
+      "italic": null,
+      "typography": "title",
+      "underline": null
+    },
+    "text": "Results for \"milk\""
+  },
+  {
+    "__typename": "ItemsItem",
+    "availability": {
+      "__typename": "ItemsAvailability",
+      "available": true,
+      "blackoutTimes": null,
+      "stockLevel": "highlyInStock",
+      "viewSection": {
+        "__typename": "AvailabilityResponseBackedAvailabilitySection",
+        "outOfStockCtaString": null,
+        "similarItemsActionVariant": "none",
+        "stockLevelLabelString": "Many in stock",
+        "warningIconImage": {
+          "__typename": "Image",
+          "id": "00f6e460",
+          "url": "https://www.instacart.com/assets/dependability/item_availability/highly_in_stock-18910a57dac5f8e2db073c800e1742558d519cc5d5b20f375efa8a495462471c.png"
+        }
+      }
+    },
+    "brandId": "7632",
+    "brandName": "kirkland signature",
+    "comboPromotions": [],
+    "configurableProductId": null,
+    "dietary": {
+      "__typename": "ItemsDietary",
+      "mlDietaryAttributes": null,
+      "mlShoppingAttributes": [],
+      "viewSection": {
+        "__typename": "ItemsResponseBackedDietarySection",
+        "attributeBadgeImage": null,
+        "attributeSections": [],
+        "attributesString": null
+      }
+    },
+    "evergreenUrl": "16902650-kirkland-signature-homogenized-milk-1-gal-4-qt",
+    "id": "items_3281-16902650",
+    "inStoreItemLocation": null,
+    "itemEbt": null,
+    "itemFreshFunds": null,
+    "itemLoadId": "019a9ee8-36c3-78e4-86e5-196bb22628c2",
+    "itemMedicare": null,
+    "legacyId": "43630938",
+    "legacyV3Id": "item_43630938",
+    "name": "Kirkland Signature Whole Milk, 1 gal",
+    "nutritionalAttributes": [
+      {
+        "__typename": "ItemsNutritionAttribute",
+        "viewSection": {
+          "__typename": "ItemsResponseBackedNutritionAttributeSection",
+          "longLabelString": "Protein",
+          "shortLabelString": "Pro",
+          "unitString": "g",
+          "valueString": "8"
+        }
+      },
+      {
+        "__typename": "ItemsNutritionAttribute",
+        "viewSection": {
+          "__typename": "ItemsResponseBackedNutritionAttributeSection",
+          "longLabelString": "Fat",
+          "shortLabelString": "Fat",
+          "unitString": "g",
+          "valueString": "8"
+        }
+      },
+      {
+        "__typename": "ItemsNutritionAttribute",
+        "viewSection": {
+          "__typename": "ItemsResponseBackedNutritionAttributeSection",
+          "longLabelString": "Sugar",
+          "shortLabelString": "Sug",
+          "unitString": "g",
+          "valueString": "11"
+        }
+      },
+      {
+        "__typename": "ItemsNutritionAttribute",
+        "viewSection": {
+          "__typename": "ItemsResponseBackedNutritionAttributeSection",
+          "longLabelString": "Calories",
+          "shortLabelString": "Cal",
+          "unitString": "",
+          "valueString": "150"
+        }
+      }
+    ],
+    "price": {
+      "__typename": "ItemsItemPrice",
+      "debugProperties": {},
+      "greatPrice": null,
+      "id": "items_3281-16902650",
+      "itemId": "items_3281-16902650",
+      "parWeightTotalEstimate": {
+        "__typename": "ItemsParWeightTotalEstimate",
+        "id": "6fd25399",
+        "viewSection": {
+          "__typename": "ItemsResponseBackedParWeightTotalEstimateSection",
+          "parWeightString": null
+        }
+      },
+      "viewSection": {
+        "__typename": "ItemsResponseBackedItemPriceSection",
+        "badge": null,
+        "currencySymbolString": "$",
+        "fullPriceString": null,
+        "itemCard": {
+          "__typename": "ItemsResponseBackedItemPriceItemCardSection",
+          "badgeVisibilityVariant": "hide",
+          "discountHeaderString": null,
+          "discountSubHeaderString": "off!",
+          "fullPriceScreenReaderString": null,
+          "fullPriceString": null,
+          "id": "items_response_backed:048b1911:item_price:4d4c259e:item_card",
+          "loyaltyPriceStringFormatted": null,
+          "loyaltyPriceStringPositionVariant": "control",
+          "loyaltyProgramVariant": "hide",
+          "nonLoyaltyPriceStringFormatted": null,
+          "offerLabelStringFormatted": null,
+          "plainFullPriceString": null,
+          "priceAriaLabelString": "$3.63",
+          "priceBackgroundVariant": "hide",
+          "pricePerUnitString": null,
+          "priceScreenReaderString": "Current price: $3.63",
+          "priceString": "$3.63",
+          "priceStringFormatted": {
+            "__typename": "ViewFormattedString",
+            "id": "72d314d8",
+            "sections": [
+              {
+                "__typename": "ViewFormattedStringSection",
+                "content": "$",
+                "id": "aaf681dc",
+                "name": "small_currency_symbol"
+              },
+              {
+                "__typename": "ViewFormattedStringSection",
+                "content": "3",
+                "id": "f7af94bb",
+                "name": "dollar"
+              },
+              {
+                "__typename": "ViewFormattedStringSection",
+                "content": "63",
+                "id": "09941eb3",
+                "name": "cents"
+              }
+            ]
+          },
+          "priceSuffixString": "",
+          "pricingUnitConvergenceVariant": "variant",
+          "pricingUnitSecondaryString": null,
+          "pricingUnitString": null,
+          "secondaryBottomStringFormatted": null,
+          "secondaryTopStringFormatted": null,
+          "smartDiscountFormattedAttributesString": null,
+          "trackingProperties": {
+            "item_card_impression_id": "870bace6-9954-4079-84b3-eda7d3010796"
+          }
+        },
+        "itemDetails": {
+          "__typename": "ItemsResponseBackedItemPriceItemDetailsSection",
+          "addLoyaltyCardString": null,
+          "dealAppliedLabelString": null,
+          "dealAppliedSoFarMessageString": null,
+          "fullPriceString": null,
+          "loyaltyProgramVariant": "hide",
+          "mixAndMatchItemsTitleString": "Available Mix & Match items",
+          "mixAndMatchItemsVariant": "hide",
+          "priceAriaLabelString": "$3.63",
+          "priceEstimateVariant": "hide",
+          "pricePerUnitString": null,
+          "priceString": "$3.63",
+          "pricingUnitSecondaryString": null,
+          "pricingUnitString": null,
+          "saleDisclaimerString": null,
+          "secondaryBottomStringFormatted": null,
+          "secondaryTopStringFormatted": null
+        },
+        "itemPromotions": [],
+        "priceString": "$3.63",
+        "priceValueString": "3.63",
+        "sizeSelector": null,
+        "trackingProperties": {
+          "item_tasks": [],
+          "on_sale_ind": {
+            "loyalty": false
+          },
+          "price": "$3.63",
+          "price_data_source": "legacy",
+          "product_id": "16902650"
+        }
+      }
+    },
+    "productCanonicalUrl": null,
+    "productId": "16902650",
+    "productRating": null,
+    "quantityAttributes": {
+      "__typename": "ItemsQuantityAttributes",
+      "defaultSelectOption": 1,
+      "increment": 1,
+      "initial": 1,
+      "max": 999,
+      "min": 1,
+      "parWeight": null,
+      "quantityType": "each",
+      "selectOptions": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "viewSection": {
+        "__typename": "ItemsResponseBackedQuantityAttributesSection",
+        "iconUnitTypeVisibilityVariant": "hide",
+        "maxedOutString": "Max 999 per order",
+        "minReachedString": null,
+        "parWeightDisplayString": null,
+        "quantityUnitVisibilityVariant": "show",
+        "stepperUnitTypeVisibilityVariant": "hide",
+        "totalWeightEstimateTemplatePluralString": null,
+        "totalWeightEstimateTemplateString": null,
+        "unitAriaString": "item",
+        "unitPluralAriaString": "items",
+        "unitPluralString": "ct",
+        "unitString": "ct",
+        "variableWeightDisclaimerLongString": null,
+        "variableWeightDisclaimerString": null
+      }
+    },
+    "quantityAttributesEach": {
+      "__typename": "ItemsQuantityAttributes",
+      "defaultSelectOption": 1,
+      "increment": 1,
+      "initial": 1,
+      "max": 999,
+      "min": 1,
+      "parWeight": null,
+      "quantityType": "each",
+      "selectOptions": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "viewSection": {
+        "__typename": "ItemsResponseBackedQuantityAttributesSection",
+        "iconUnitTypeVisibilityVariant": "hide",
+        "maxedOutString": "Max 999 per order",
+        "minReachedString": null,
+        "parWeightDisplayString": null,
+        "quantityUnitVisibilityVariant": "show",
+        "stepperUnitTypeVisibilityVariant": "hide",
+        "totalWeightEstimateTemplatePluralString": null,
+        "totalWeightEstimateTemplateString": null,
+        "unitAriaString": "item",
+        "unitPluralAriaString": "items",
+        "unitPluralString": "ct",
+        "unitString": "ct",
+        "variableWeightDisclaimerLongString": null,
+        "variableWeightDisclaimerString": null
+      }
+    },
+    "quantityAttributesWeight": null,
+    "size": "each",
+    "tags": [
+      "storeBrand"
+    ],
+    "variantDimensionValues": [
+      "1 gal"
+    ],
+    "variantGroup": {
+      "__typename": "ItemsVariantGroup",
+      "viewSection": {
+        "__typename": "ItemVariantGroupsResponseBackedVariantGroupSection",
+        "itemCardSubtextStringFormatted": null,
+        "optionsSummaryString": null,
+        "trackingProperties": {
+          "dimension_names": "variant_size",
+          "dimensions_count": "1",
+          "options_count": "1"
+        },
+        "variantsItemCardSubtextSimpleStringFormatted": null,
+        "variantsItemCardSubtextStringFormatted": null
+      }
+    },
+    "variantGroupId": "item_variant_groups_3281-5998022",
+    "viewSection": {
+      "__typename": "ItemsResponseBackedItemSection",
+      "boughtXTimesString": null,
+      "fsaHsaEligibleString": null,
+      "hideActionsOnCartItemVariant": "true",
+      "itemCardDiscountBadgeVariant": "hide",
+      "itemCardHideQuickAddPriceVariant": "show",
+      "itemCardHideSizeVariant": "show",
+      "itemCardLowStockLevelVariant": "visible",
+      "itemCardPricePerUnitVariant": "hide",
+      "itemCardQuickAddVariant": "control",
+      "itemCardRatingVariant": "hidden",
+      "itemImage": {
+        "__typename": "Image",
+        "altText": null,
+        "templateUrl": "https://www.instacart.com/image-server/{width=}x{height=}/filters:fill(FFFFFF,true):format(jpg)/d2lnr5mha7bycj.cloudfront.net/product-image/file/large_0088a887-4195-4921-9344-1881d5f64f36.jpeg",
+        "url": "https://d2lnr5mha7bycj.cloudfront.net/product-image/file/large_0088a887-4195-4921-9344-1881d5f64f36.jpeg"
+      },
+      "itemString": "Item",
+      "itemTransparentImage": null,
+      "lowStockVariant": "none",
+      "nameStringFormatted": {
+        "__typename": "ViewFormattedString",
+        "id": "d4bd19e7",
+        "sections": [
+          {
+            "__typename": "ViewFormattedStringSection",
+            "content": "Kirkland Signature Whole Milk, 1 gal",
+            "id": "104f50c4",
+            "name": "bodymedium2"
+          }
+        ]
+      },
+      "quantityAttributesVariant": "eachAndWeight",
+      "requestAddString": null,
+      "retailerLookupCodeString": null,
+      "retailerReferenceCodeString": null,
+      "rewardProgramLabelString": null,
+      "servingSizeString": null,
+      "tastingNotesString": null,
+      "taxStringFormatted": null,
+      "trackingProperties": {
+        "availability_score": 0.9457,
+        "available_ind": true,
+        "blackout": false,
+        "element_attributes": {
+          "attributes": [],
+          "low_stock_label": false
+        },
+        "element_details": {
+          "element_id": "items_3281-16902650",
+          "element_type": "item",
+          "item_tags": [
+            "store_brand"
+          ],
+          "product_id": "16902650",
+          "retailer_id": "5",
+          "retailer_location_id": "3281"
+        },
+        "external_sku_id": null,
+        "item_id": "43630938",
+        "item_name": "Kirkland Signature Whole Milk, 1 gal",
+        "itemsview___layouts___itemsresponsebacked___item": "bd9252e7-6f78-4b2d-9134-0d768f3c7bb3",
+        "low_stock_label": false,
+        "low_stock_variant": "none",
+        "on_sale_ind": {
+          "buy_one_get_one": false,
+          "cpg_coupon": false,
+          "on_sale": false,
+          "retailer": false
+        },
+        "product_category_name": "Plain Milk",
+        "product_id": "16902650",
+        "restricted_for_targeting_and_sharing": false,
+        "stock_level": "highly_in_stock"
+      },
+      "variantDimensionsString": "1 gal"
+    }
+  },
+  {
+    "__typename": "ViewFormattedStringSection",
+    "content": "$",
+    "id": "aaf681dc",
+    "name": "small_currency_symbol"
+  },
+  {
+    "__typename": "ViewFormattedStringSection",
+    "content": "3",
+    "id": "f7af94bb",
+    "name": "dollar"
+  },
+  {
+    "__typename": "ViewFormattedStringSection",
+    "content": "63",
+    "id": "09941eb3",
+    "name": "cents"
+  },
+  {
+    "__typename": "ViewFormattedStringSection",
+    "content": "Kirkland Signature Whole Milk, 1 gal",
+    "id": "104f50c4",
+    "name": "bodymedium2"
+  },
+  {
+    "__typename": "ItemsItem",
+    "availability": {
+      "__typename": "ItemsAvailability",
+      "available": true,
+      "blackoutTimes": null,
+      "stockLevel": "highlyInStock",
+      "viewSection": {
+        "__typename": "AvailabilityResponseBackedAvailabilitySection",
+        "outOfStockCtaString": null,
+        "similarItemsActionVariant": "none",
+        "stockLevelLabelString": "Many in stock",
+        "warningIconImage": {
+          "__typename": "Image",
+          "id": "9db35eb9",
+          "url": "https://www.instacart.com/assets/dependability/item_availability/highly_in_stock-18910a57dac5f8e2db073c800e1742558d519cc5d5b20f375efa8a495462471c.png"
+        }
+      }
+    },
+    "brandId": "7632",
+    "brandName": "kirkland signature",
+    "comboPromotions": [],
+    "configurableProductId": null,
+    "dietary": {
+      "__typename": "ItemsDietary",
+      "mlDietaryAttributes": null,
+      "mlShoppingAttributes": [],
+      "viewSection": {
+        "__typename": "ItemsResponseBackedDietarySection",
+        "attributeBadgeImage": null,
+        "attributeSections": [],
+        "attributesString": "Organic"
+      }
+    },
+    "evergreenUrl": "21150792-kirkland-signature-organic-no-dha-whole-milk-64-fl-oz",
+    "id": "items_3281-21150792",
+    "inStoreItemLocation": null,
+    "itemEbt": null,
+    "itemFreshFunds": null,
+    "itemLoadId": "019a9ee8-36b1-787a-a476-001bafffec87",
+    "itemMedicare": null,
+    "legacyId": "3362034278",
+    "legacyV3Id": "item_3362034278",
+    "name": "Kirkland Signature Organic Whole Milk, Half Gallon, 3-count",
+    "nutritionalAttributes": [
+      {
+        "__typename": "ItemsNutritionAttribute",
+        "viewSection": {
+          "__typename": "ItemsResponseBackedNutritionAttributeSection",
+          "longLabelString": "Protein",
+          "shortLabelString": "Pro",
+          "unitString": "g",
+          "valueString": "8"
+        }
+      },
+      {
+        "__typename": "ItemsNutritionAttribute",
+        "viewSection": {
+          "__typename": "ItemsResponseBackedNutritionAttributeSection",
+          "longLabelString": "Fat",
+          "shortLabelString": "Fat",
+          "unitString": "g",
+          "valueString": "8"
+        }
+      },
+      {
+        "__typename": "ItemsNutritionAttribute",
+        "viewSection": {
+          "__typename": "ItemsResponseBackedNutritionAttributeSection",
+          "longLabelString": "Sugar",
+          "shortLabelString": "Sug",
+          "unitString": "g",
+          "valueString": "12"
+        }
+      },
+      {
+        "__typename": "ItemsNutritionAttribute",
+        "viewSection": {
+          "__typename": "ItemsResponseBackedNutritionAttributeSection",
+          "longLabelString": "Calories",
+          "shortLabelString": "Cal",
+          "unitString": "",
+          "valueString": "150"
+        }
+      }
+    ],
+    "price": {
+      "__typename": "ItemsItemPrice",
+      "debugProperties": {},
+      "greatPrice": null,
+      "id": "items_3281-21150792",
+      "itemId": "items_3281-21150792",
+      "parWeightTotalEstimate": {
+        "__typename": "ItemsParWeightTotalEstimate",
+        "id": "f5c5b755",
+        "viewSection": {
+          "__typename": "ItemsResponseBackedParWeightTotalEstimateSection",
+          "parWeightString": null
+        }
+      },
+      "viewSection": {
+        "__typename": "ItemsResponseBackedItemPriceSection",
+        "badge": null,
+        "currencySymbolString": "$",
+        "fullPriceString": null,
+        "itemCard": {
+          "__typename": "ItemsResponseBackedItemPriceItemCardSection",
+          "badgeVisibilityVariant": "hide",
+          "discountHeaderString": null,
+          "discountSubHeaderString": "off!",
+          "fullPriceScreenReaderString": null,
+          "fullPriceString": null,
+          "id": "items_response_backed:898d6c63:item_price:afa19f93:item_card",
+          "loyaltyPriceStringFormatted": null,
+          "loyaltyPriceStringPositionVariant": "control",
+          "loyaltyProgramVariant": "hide",
+          "nonLoyaltyPriceStringFormatted": null,
+          "offerLabelStringFormatted": null,
+          "plainFullPriceString": null,
+          "priceAriaLabelString": "$15.29",
+          "priceBackgroundVariant": "hide",
+          "pricePerUnitString": null,
+          "priceScreenReaderString": "Current price: $15.29",
+          "priceString": "$15.29",
+          "priceStringFormatted": {
+            "__typename": "ViewFormattedString",
+            "id": "df9bfa84",
+            "sections": [
+              {
+                "__typename": "ViewFormattedStringSection",
+                "content": "$",
+                "id": "6dfbe035",
+                "name": "small_currency_symbol"
+              },
+              {
+                "__typename": "ViewFormattedStringSection",
+                "content": "15",
+                "id": "05934820",
+                "name": "dollar"
+              },
+              {
+                "__typename": "ViewFormattedStringSection",
+                "content": "29",
+                "id": "2a0cda88",
+                "name": "cents"
+              }
+            ]
+          },
+          "priceSuffixString": "",
+          "pricingUnitConvergenceVariant": "variant",
+          "pricingUnitSecondaryString": null,
+          "pricingUnitString": "3 ct",
+          "secondaryBottomStringFormatted": null,
+          "secondaryTopStringFormatted": null,
+          "smartDiscountFormattedAttributesString": null,
+          "trackingProperties": {
+            "item_card_impression_id": "59cce949-c1e7-49bc-aabd-3fa448dbee89"
+          }
+        },
+        "itemDetails": {
+          "__typename": "ItemsResponseBackedItemPriceItemDetailsSection",
+          "addLoyaltyCardString": null,
+          "dealAppliedLabelString": null,
+          "dealAppliedSoFarMessageString": null,
+          "fullPriceString": null,
+          "loyaltyProgramVariant": "hide",
+          "mixAndMatchItemsTitleString": "Available Mix & Match items",
+          "mixAndMatchItemsVariant": "hide",
+          "priceAriaLabelString": "$15.29",
+          "priceEstimateVariant": "hide",
+          "pricePerUnitString": "$0.08/fl oz",
+          "priceString": "$15.29",
+          "pricingUnitSecondaryString": null,
+          "pricingUnitString": "3 ct",
+          "saleDisclaimerString": null,
+          "secondaryBottomStringFormatted": null,
+          "secondaryTopStringFormatted": null
+        },
+        "itemPromotions": [],
+        "priceString": "$15.29",
+        "priceValueString": "15.29",
+        "sizeSelector": null,
+        "trackingProperties": {
+          "item_tasks": [],
+          "on_sale_ind": {
+            "loyalty": false
+          },
+          "price": "$15.29",
+          "price_data_source": "legacy",
+          "product_id": "21150792"
+        }
+      }
+    },
+    "productCanonicalUrl": null,
+    "productId": "21150792",
+    "productRating": null,
+    "quantityAttributes": {
+      "__typename": "ItemsQuantityAttributes",
+      "defaultSelectOption": 1,
+      "increment": 1,
+      "initial": 1,
+      "max": 9999,
+      "min": 1,
+      "parWeight": null,
+      "quantityType": "each",
+      "selectOptions": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "viewSection": {
+        "__typename": "ItemsResponseBackedQuantityAttributesSection",
+        "iconUnitTypeVisibilityVariant": "hide",
+        "maxedOutString": "Max 9999 per order",
+        "minReachedString": null,
+        "parWeightDisplayString": null,
+        "quantityUnitVisibilityVariant": "show",
+        "stepperUnitTypeVisibilityVariant": "hide",
+        "totalWeightEstimateTemplatePluralString": null,
+        "totalWeightEstimateTemplateString": null,
+        "unitAriaString": "item",
+        "unitPluralAriaString": "items",
+        "unitPluralString": "ct",
+        "unitString": "ct",
+        "variableWeightDisclaimerLongString": null,
+        "variableWeightDisclaimerString": null
+      }
+    },
+    "quantityAttributesEach": {
+      "__typename": "ItemsQuantityAttributes",
+      "defaultSelectOption": 1,
+      "increment": 1,
+      "initial": 1,
+      "max": 9999,
+      "min": 1,
+      "parWeight": null,
+      "quantityType": "each",
+      "selectOptions": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "viewSection": {
+        "__typename": "ItemsResponseBackedQuantityAttributesSection",
+        "iconUnitTypeVisibilityVariant": "hide",
+        "maxedOutString": "Max 9999 per order",
+        "minReachedString": null,
+        "parWeightDisplayString": null,
+        "quantityUnitVisibilityVariant": "show",
+        "stepperUnitTypeVisibilityVariant": "hide",
+        "totalWeightEstimateTemplatePluralString": null,
+        "totalWeightEstimateTemplateString": null,
+        "unitAriaString": "item",
+        "unitPluralAriaString": "items",
+        "unitPluralString": "ct",
+        "unitString": "ct",
+        "variableWeightDisclaimerLongString": null,
+        "variableWeightDisclaimerString": null
+      }
+    },
+    "quantityAttributesWeight": null,
+    "size": "each",
+    "tags": [
+      "storeBrand"
+    ],
+    "variantDimensionValues": [
+      "3 x 0.5 gal"
+    ],
+    "variantGroup": {
+      "__typename": "ItemsVariantGroup",
+      "viewSection": {
+        "__typename": "ItemVariantGroupsResponseBackedVariantGroupSection",
+        "itemCardSubtextStringFormatted": null,
+        "optionsSummaryString": null,
+        "trackingProperties": {
+          "dimension_names": "variant_size",
+          "dimensions_count": "1",
+          "options_count": "1"
+        },
+        "variantsItemCardSubtextSimpleStringFormatted": null,
+        "variantsItemCardSubtextStringFormatted": null
+      }
+    },
+    "variantGroupId": "item_variant_groups_3281-6000483",
+    "viewSection": {
+      "__typename": "ItemsResponseBackedItemSection",
+      "boughtXTimesString": null,
+      "fsaHsaEligibleString": null,
+      "hideActionsOnCartItemVariant": "true",
+      "itemCardDiscountBadgeVariant": "hide",
+      "itemCardHideQuickAddPriceVariant": "show",
+      "itemCardHideSizeVariant": "show",
+      "itemCardLowStockLevelVariant": "visible",
+      "itemCardPricePerUnitVariant": "hide",
+      "itemCardQuickAddVariant": "control",
+      "itemCardRatingVariant": "hidden",
+      "itemImage": {
+        "__typename": "Image",
+        "altText": null,
+        "templateUrl": "https://www.instacart.com/image-server/{width=}x{height=}/filters:fill(FFFFFF,true):format(jpg)/d2lnr5mha7bycj.cloudfront.net/product-image/file/large_47bcbdae-3cc9-4c8b-8348-e64ca8fc1142.jpeg",
+        "url": "https://d2lnr5mha7bycj.cloudfront.net/product-image/file/large_47bcbdae-3cc9-4c8b-8348-e64ca8fc1142.jpeg"
+      },
+      "itemString": "Item",
+      "itemTransparentImage": null,
+      "lowStockVariant": "none",
+      "nameStringFormatted": {
+        "__typename": "ViewFormattedString",
+        "id": "fbcfb6cf",
+        "sections": [
+          {
+            "__typename": "ViewFormattedStringSection",
+            "content": "Kirkland Signature Organic Whole Milk, Half Gallon, 3-count",
+            "id": "68cf1a0c",
+            "name": "bodymedium2"
+          }
+        ]
+      },
+      "quantityAttributesVariant": "eachAndWeight",
+      "requestAddString": null,
+      "retailerLookupCodeString": null,
+      "retailerReferenceCodeString": null,
+      "rewardProgramLabelString": null,
+      "servingSizeString": null,
+      "tastingNotesString": null,
+      "taxStringFormatted": null,
+      "trackingProperties": {
+        "availability_score": 0.9793,
+        "available_ind": true,
+        "blackout": false,
+        "element_attributes": {
+          "attributes": [],
+          "low_stock_label": false
+        },
+        "element_details": {
+          "element_id": "items_3281-21150792",
+          "element_type": "item",
+          "item_tags": [
+            "store_brand"
+          ],
+          "product_id": "21150792",
+          "retailer_id": "5",
+          "retailer_location_id": "3281"
+        },
+        "external_sku_id": null,
+        "item_id": "3362034278",
+        "item_name": "Kirkland Signature Organic Whole Milk, Half Gallon, 3-count",
+        "itemsview___layouts___itemsresponsebacked___item": "7712b7bb-760c-4e19-9568-41a1ddb21859",
+        "low_stock_label": false,
+        "low_stock_variant": "none",
+        "on_sale_ind": {
+          "buy_one_get_one": false,
+          "cpg_coupon": false,
+          "on_sale": false,
+          "retailer": false
+        },
+        "product_category_name": "Plain Milk",
+        "product_id": "21150792",
+        "restricted_for_targeting_and_sharing": false,
+        "stock_level": "highly_in_stock"
+      },
+      "variantDimensionsString": "3 x 0.5 gal"
+    }
+  },
+  {
+    "__typename": "ViewFormattedStringSection",
+    "content": "$",
+    "id": "6dfbe035",
+    "name": "small_currency_symbol"
+  },
+  {
+    "__typename": "ViewFormattedStringSection",
+    "content": "15",
+    "id": "05934820",
+    "name": "dollar"
+  },
+  {
+    "__typename": "ViewFormattedStringSection",
+    "content": "29",
+    "id": "2a0cda88",
+    "name": "cents"
+  }
+]

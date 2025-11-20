@@ -1,0 +1,19 @@
+{
+  "results": {
+    "Items": {
+      "success": false,
+      "reason": "Status 202"
+    },
+    "SearchCrossRetailerGroupResults": {
+      "success": false,
+      "reason": "Status 202"
+    },
+    "Autosuggestions": {
+      "success": false,
+      "reason": "Status 202"
+    }
+  },
+  "verdict": "CHALLENGING",
+  "successful_endpoints": [],
+  "total_tested": 3
+}

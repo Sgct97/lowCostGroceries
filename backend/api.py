@@ -9,6 +9,12 @@ from pydantic import BaseModel, Field
 from typing import List, Optional, Dict
 import time
 from datetime import datetime
+import logging
+
+# Import our production UC scraper
+from uc_scraper import search_products as scrape_google_shopping
+
+logger = logging.getLogger(__name__)
 
 app = FastAPI(
     title="Low Cost Groceries API",
@@ -124,74 +130,158 @@ async def root():
     }
 
 @app.post("/search", response_model=SearchResponse)
-async def search_products(request: SearchRequest, background_tasks: BackgroundTasks):
+async def search_products_endpoint(request: SearchRequest, background_tasks: BackgroundTasks):
     """
     Search for products by query and location
     
     Returns cached results if available (< 1 hour old),
-    otherwise scrapes Google Shopping
+    otherwise scrapes Google Shopping using UC
     """
     
     # Check cache first
     cached_response = get_from_cache(request.query, request.zipcode)
     if cached_response:
+        logger.info(f"✅ Cache hit: {request.query} in {request.zipcode}")
         cached_response.cached = True
         return cached_response
     
-    # TODO: Integrate scraper here
-    # For now, return mock data
-    mock_products = [
-        Product(
-            title=f"{request.query.title()} - Mock Product 1",
-            price=3.99,
-            original_price=4.99,
-            merchant="Walmart",
-            rating=4.5,
-            review_count=1234
-        ),
-        Product(
-            title=f"{request.query.title()} - Mock Product 2",
-            price=4.49,
-            merchant="Target",
-            rating=4.3,
-            review_count=567
+    logger.info(f"🔍 Cache miss - scraping: {request.query} in {request.zipcode}")
+    
+    try:
+        # Use our proven UC scraper
+        scrape_results = scrape_google_shopping(
+            search_terms=[request.query],
+            zip_code=request.zipcode,
+            max_products_per_item=request.limit,
+            use_parallel=False  # Single search, no need for parallel
         )
-    ]
-    
-    response = SearchResponse(
-        query=request.query,
-        zipcode=request.zipcode,
-        products=mock_products[:request.limit],
-        total_found=len(mock_products),
-        cached=False
-    )
-    
-    # Save to cache
-    save_to_cache(request.query, request.zipcode, response)
-    
-    return response
+        
+        # Extract products for this query
+        raw_products = scrape_results.get(request.query, [])
+        
+        # Convert to Pydantic models
+        products = [
+            Product(
+                title=p.get('name'),
+                price=p.get('price'),
+                original_price=None,  # Not available in aria-label parsing
+                merchant=p.get('merchant', 'Unknown'),
+                rating=p.get('rating'),
+                review_count=p.get('review_count'),
+                image_url=None,  # Not available in aria-label parsing
+                product_id=None
+            )
+            for p in raw_products
+            if p.get('name') and p.get('price')
+        ]
+        
+        response = SearchResponse(
+            query=request.query,
+            zipcode=request.zipcode,
+            products=products[:request.limit],
+            total_found=len(products),
+            cached=False
+        )
+        
+        # Save to cache
+        save_to_cache(request.query, request.zipcode, response)
+        
+        logger.info(f"✅ Scraped {len(products)} products for '{request.query}'")
+        
+        return response
+        
+    except Exception as e:
+        logger.error(f"❌ Scraping failed for '{request.query}': {e}")
+        raise HTTPException(
+            status_code=500,
+            detail=f"Failed to scrape products: {str(e)}"
+        )
 
 @app.post("/cart", response_model=CartResponse)
 async def build_cart(request: CartRequest):
     """
     Build a shopping cart with the cheapest option for each item
     
-    Takes a list of items and finds the cheapest available option for each
+    Uses PARALLEL scraping for multiple items (FAST!)
+    Recommended: 2-3 parallel browsers per droplet
     """
     
+    logger.info(f"🛒 Building cart: {len(request.items)} items in ZIP {request.zipcode}")
+    
+    # Check cache for each item first
+    cached_items = {}
+    items_to_scrape = []
+    
+    for item in request.items:
+        cached = get_from_cache(item, request.zipcode)
+        if cached:
+            cached_items[item] = cached.products
+        else:
+            items_to_scrape.append(item)
+    
+    logger.info(f"✅ Cache: {len(cached_items)} items | 🔍 Scraping: {len(items_to_scrape)} items")
+    
+    # Scrape uncached items in PARALLEL
+    scraped_items = {}
+    if items_to_scrape:
+        try:
+            scrape_results = scrape_google_shopping(
+                search_terms=items_to_scrape,
+                zip_code=request.zipcode,
+                max_products_per_item=20,
+                use_parallel=True  # Use parallel for multiple items!
+            )
+            
+            # Convert to Product models and cache
+            for item, raw_products in scrape_results.items():
+                products = [
+                    Product(
+                        title=p.get('name'),
+                        price=p.get('price'),
+                        original_price=None,
+                        merchant=p.get('merchant', 'Unknown'),
+                        rating=p.get('rating'),
+                        review_count=p.get('review_count'),
+                        image_url=None,
+                        product_id=None
+                    )
+                    for p in raw_products
+                    if p.get('name') and p.get('price')
+                ]
+                scraped_items[item] = products
+                
+                # Cache for future requests
+                response = SearchResponse(
+                    query=item,
+                    zipcode=request.zipcode,
+                    products=products,
+                    total_found=len(products),
+                    cached=False
+                )
+                save_to_cache(item, request.zipcode, response)
+        
+        except Exception as e:
+            logger.error(f"❌ Parallel scraping failed: {e}")
+            raise HTTPException(
+                status_code=500,
+                detail=f"Failed to scrape products: {str(e)}"
+            )
+    
+    # Combine cached + scraped results
+    all_results = {**cached_items, **scraped_items}
+    
+    # Build cart with cheapest options
     items_dict = {}
     total_cost = 0.0
     total_savings = 0.0
     store_breakdown = {}
     
     for item in request.items:
-        # Search for each item
-        search_req = SearchRequest(query=item, zipcode=request.zipcode, limit=10)
-        search_resp = await search_products(search_req, BackgroundTasks())
+        products = all_results.get(item, [])
         
-        if search_resp.products:
+        if products:
             # Get cheapest product
-            cheapest = min(search_resp.products, key=lambda p: p.price)
+            cheapest = min(products, key=lambda p: p.price)
             items_dict[item] = cheapest
             total_cost += cheapest.price
             
@@ -202,6 +292,10 @@ async def build_cart(request: CartRequest):
             # Track by store
             merchant = cheapest.merchant
             store_breakdown[merchant] = store_breakdown.get(merchant, 0) + cheapest.price
+        else:
+            logger.warning(f"⚠️  No products found for '{item}'")
+    
+    logger.info(f"✅ Cart built: {len(items_dict)} items, ${total_cost:.2f} total")
     
     return CartResponse(
         items=items_dict,

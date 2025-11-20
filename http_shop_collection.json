@@ -1,0 +1,423 @@
+{
+  "data": {
+    "shopCollection": {
+      "shops": [
+        {
+          "id": "2813",
+          "retailerId": "57",
+          "serviceType": "delivery",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "10369",
+          "retailerId": "57",
+          "serviceType": "pickup",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "32776",
+          "retailerId": "90",
+          "serviceType": "delivery",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "12192",
+          "retailerId": "5",
+          "serviceType": "delivery",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "11187",
+          "retailerId": "144",
+          "serviceType": "delivery",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "86907",
+          "retailerId": "26",
+          "serviceType": "delivery",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "38406",
+          "retailerId": "204",
+          "serviceType": "delivery",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "40035",
+          "retailerId": "118",
+          "serviceType": "delivery",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "7660",
+          "retailerId": "299",
+          "serviceType": "delivery",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "10846",
+          "retailerId": "297",
+          "serviceType": "delivery",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "10847",
+          "retailerId": "297",
+          "serviceType": "pickup",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "16644156",
+          "retailerId": "12",
+          "serviceType": "delivery",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "16646003",
+          "retailerId": "12",
+          "serviceType": "pickup",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "436",
+          "retailerId": "449",
+          "serviceType": "delivery",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "16643310",
+          "retailerId": "279",
+          "serviceType": "delivery",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "16644639",
+          "retailerId": "279",
+          "serviceType": "pickup",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "15591",
+          "retailerId": "264",
+          "serviceType": "delivery",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "15592",
+          "retailerId": "264",
+          "serviceType": "pickup",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "2524",
+          "retailerId": "352",
+          "serviceType": "delivery",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "24422",
+          "retailerId": "606",
+          "serviceType": "delivery",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "32629",
+          "retailerId": "555",
+          "serviceType": "delivery",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "17519",
+          "retailerId": "645",
+          "serviceType": "delivery",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "5485",
+          "retailerId": "648",
+          "serviceType": "delivery",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "10391",
+          "retailerId": "1250",
+          "serviceType": "delivery",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "12120",
+          "retailerId": "1322",
+          "serviceType": "delivery",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "33679",
+          "retailerId": "1373",
+          "serviceType": "delivery",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "602111",
+          "retailerId": "1375",
+          "serviceType": "delivery",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "33090",
+          "retailerId": "1379",
+          "serviceType": "delivery",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "63576",
+          "retailerId": "1390",
+          "serviceType": "delivery",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "16646471",
+          "retailerId": "1390",
+          "serviceType": "pickup",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "285309",
+          "retailerId": "1424",
+          "serviceType": "delivery",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "34844",
+          "retailerId": "1425",
+          "serviceType": "delivery",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "98836",
+          "retailerId": "1445",
+          "serviceType": "delivery",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "31141",
+          "retailerId": "1456",
+          "serviceType": "delivery",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "13712",
+          "retailerId": "1493",
+          "serviceType": "delivery",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "27680",
+          "retailerId": "366",
+          "serviceType": "delivery",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "14002",
+          "retailerId": "1618",
+          "serviceType": "delivery",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "175904",
+          "retailerId": "1573",
+          "serviceType": "delivery",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "131222",
+          "retailerId": "1684",
+          "serviceType": "delivery",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "19998",
+          "retailerId": "1723",
+          "serviceType": "delivery",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "126722",
+          "retailerId": "1756",
+          "serviceType": "delivery",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "363775",
+          "retailerId": "2208",
+          "serviceType": "delivery",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "128333",
+          "retailerId": "2222",
+          "serviceType": "delivery",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "179001",
+          "retailerId": "2377",
+          "serviceType": "delivery",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "204184",
+          "retailerId": "2442",
+          "serviceType": "delivery",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "219358",
+          "retailerId": "2407",
+          "serviceType": "delivery",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "272138",
+          "retailerId": "2432",
+          "serviceType": "delivery",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "16644792",
+          "retailerId": "2527",
+          "serviceType": "delivery",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "301896",
+          "retailerId": "2589",
+          "serviceType": "delivery",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "350995",
+          "retailerId": "2674",
+          "serviceType": "delivery",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "349655",
+          "retailerId": "2776",
+          "serviceType": "delivery",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "370397",
+          "retailerId": "2832",
+          "serviceType": "delivery",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "369655",
+          "retailerId": "2843",
+          "serviceType": "delivery",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "376748",
+          "retailerId": "2857",
+          "serviceType": "delivery",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "375630",
+          "retailerId": "2858",
+          "serviceType": "delivery",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "382682",
+          "retailerId": "2866",
+          "serviceType": "delivery",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "409868",
+          "retailerId": "644",
+          "serviceType": "delivery",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "521545",
+          "retailerId": "3218",
+          "serviceType": "delivery",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "501865",
+          "retailerId": "3246",
+          "serviceType": "delivery",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "500022",
+          "retailerId": "3168",
+          "serviceType": "delivery",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "505853",
+          "retailerId": "2956",
+          "serviceType": "delivery",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "605038",
+          "retailerId": "3359",
+          "serviceType": "delivery",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "553653",
+          "retailerId": "3617",
+          "serviceType": "delivery",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "550428",
+          "retailerId": "1654",
+          "serviceType": "delivery",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "604406",
+          "retailerId": "8197",
+          "serviceType": "delivery",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "16635391",
+          "retailerId": "10640",
+          "serviceType": "delivery",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "16641074",
+          "retailerId": "10658",
+          "serviceType": "delivery",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "16639588",
+          "retailerId": "4065",
+          "serviceType": "delivery",
+          "__typename": "RetailersShop"
+        },
+        {
+          "id": "8349",
+          "retailerId": "1258",
+          "serviceType": "delivery",
+          "__typename": "RetailersShop"
+        }
+      ],
+      "__typename": "RetailersShopCollection"
+    }
+  }
+}
