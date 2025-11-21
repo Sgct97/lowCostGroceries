@@ -57,19 +57,17 @@ class ProductParser:
                 # Parse the aria-label which contains structured product info
                 # Example: "Whole Milk. Current Price: $3.69. Walmart. Rated 4.5 out of 5."
                 
+                # Extract price FIRST before splitting (to preserve $X.XX format)
+                price = None
+                price_match = re.search(r'\$(\d+\.\d+|\d+)', aria_label)
+                if price_match:
+                    price = float(price_match.group(1))
+                
+                # NOW split by periods
                 parts = aria_label.split('.')
                 
                 # Product name (first part)
                 product_name = parts[0].strip() if len(parts) > 0 else None
-                
-                # Price - look for "Current Price:" or standalone $X.XX
-                price = None
-                for part in parts:
-                    if '$' in part:
-                        price_match = re.search(r'\$(\d+\.?\d*)', part)
-                        if price_match:
-                            price = float(price_match.group(1))
-                            break
                 
                 # Merchant - usually the part after price
                 merchant = None
@@ -178,7 +176,9 @@ class UCGoogleShoppingScraper:
         """
         query = f"{search_term} near zip {zip_code} nearby"
         encoded_query = urllib.parse.quote_plus(query)
-        return f"https://www.google.com/search?q={encoded_query}&udm=28&shopmd=4"
+        url = f"https://www.google.com/search?q={encoded_query}&udm=28&shopmd=4"
+        logger.info(f"🔗 Search URL: {url}")
+        return url
     
     def _check_for_captcha(self, html: str) -> bool:
         """Check if page is a CAPTCHA challenge"""
@@ -222,17 +222,15 @@ class UCGoogleShoppingScraper:
                 
                 # Parse product data
                 try:
+                    # Extract price FIRST before splitting (preserves $X.XX format)
+                    price = None
+                    price_match = re.search(r'\$(\d+\.\d+|\d+)', aria_label)
+                    if price_match:
+                        price = float(price_match.group(1))
+                    
+                    # NOW split by periods
                     parts = aria_label.split('.')
                     product_name = parts[0].strip() if len(parts) > 0 else None
-                    
-                    # Extract price
-                    price = None
-                    for part in parts:
-                        if '$' in part:
-                            price_match = re.search(r'\$(\d+\.?\d*)', part)
-                            if price_match:
-                                price = float(price_match.group(1))
-                                break
                     
                     # Use merchant from Selenium extraction
                     merchant = merchants[merchant_idx] if merchant_idx < len(merchants) else None
@@ -322,6 +320,15 @@ class UCGoogleShoppingScraper:
             # Load page
             driver.get(url)
             time.sleep(wait_time)
+            
+            # Save HTML for debugging
+            import os
+            os.makedirs('/tmp/scraper_debug', exist_ok=True)
+            safe_term = search_term.replace(' ', '_').replace(',', '')[:30]
+            debug_path = f'/tmp/scraper_debug/{safe_term}_{zip_code}.html'
+            with open(debug_path, 'w', encoding='utf-8') as f:
+                f.write(driver.page_source)
+            logger.info(f"💾 Saved HTML: {debug_path}")
             
             # Extract products
             products = self._extract_products(driver)

@@ -20,6 +20,9 @@ import os
 # Import our production UC scraper (for direct mode if needed)
 from uc_scraper import search_products as scrape_google_shopping
 
+# Import AI service for product clarification
+from ai_service import clarify_item
+
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
@@ -118,6 +121,18 @@ class CartResponse(BaseModel):
     total_savings: float
     store_breakdown: Dict[str, float]  # merchant -> subtotal
 
+class ClarifyRequest(BaseModel):
+    """Request to clarify a vague grocery item using AI"""
+    item: str = Field(..., description="Vague grocery item (e.g., 'milk', 'eggs')")
+    context: Optional[List[str]] = Field(default=None, description="Previously clarified items for context-aware suggestions")
+
+class ClarifyResponse(BaseModel):
+    """AI-powered product clarification response"""
+    status: str
+    suggested: Dict
+    alternatives: List[Dict]
+    processing_time: Optional[float] = None
+
 
 # ============================================================================
 # IN-MEMORY CACHE (Simple for now, will add Redis later)
@@ -153,11 +168,78 @@ async def root():
         "service": "Low Cost Groceries API",
         "version": "1.0.0",
         "endpoints": {
+            "clarify": "/api/clarify",
             "search": "/search",
-            "cart": "/cart",
+            "cart": "/api/cart",
+            "results": "/api/results/{job_id}",
             "docs": "/docs"
         }
     }
+
+@app.post("/api/clarify", response_model=ClarifyResponse)
+async def clarify_product_endpoint(request: ClarifyRequest):
+    """
+    AI-powered product clarification using GPT-5-mini
+    
+    Converts vague grocery items into specific, searchable products.
+    
+    Example:
+        Input: {"item": "milk"}
+        Output: {
+            "suggested": {"name": "Whole Milk, 1 Gallon", "confidence": 0.95, "emoji": "🥛"},
+            "alternatives": [
+                {"name": "2% Milk, 1 Gallon", "emoji": "🥛"},
+                {"name": "Skim Milk, 1 Gallon", "emoji": "🥛"}
+            ]
+        }
+    
+    Context-aware: Pass previously clarified items in 'context' field for smarter suggestions
+    (e.g., if user picked organic eggs, suggest organic milk)
+    """
+    
+    if not request.item or len(request.item.strip()) == 0:
+        raise HTTPException(
+            status_code=400,
+            detail="Item cannot be empty"
+        )
+    
+    logger.info(f"🤖 AI clarification request: '{request.item}' (context: {len(request.context or [])} items)")
+    
+    start_time = time.time()
+    
+    try:
+        # Call GPT-5-mini for clarification
+        result = await clarify_item(
+            item=request.item.strip(),
+            context=request.context
+        )
+        
+        processing_time = time.time() - start_time
+        
+        logger.info(f"✅ AI suggested: '{result['suggested']['name']}' ({processing_time:.2f}s)")
+        
+        return {
+            "status": "success",
+            "suggested": result.get('suggested', {}),
+            "alternatives": result.get('alternatives', []),
+            "processing_time": round(processing_time, 2)
+        }
+        
+    except Exception as e:
+        logger.error(f"❌ AI clarification failed: {e}")
+        
+        # Return fallback suggestion
+        processing_time = time.time() - start_time
+        return {
+            "status": "error",
+            "suggested": {
+                "name": f"{request.item.title()}, 1 Unit",
+                "confidence": 0.5,
+                "emoji": "🛒"
+            },
+            "alternatives": [],
+            "processing_time": round(processing_time, 2)
+        }
 
 @app.post("/search", response_model=SearchResponse)
 async def search_products_endpoint(request: SearchRequest, background_tasks: BackgroundTasks):
@@ -227,7 +309,7 @@ async def search_products_endpoint(request: SearchRequest, background_tasks: Bac
             detail=f"Failed to scrape products: {str(e)}"
         )
 
-@app.post("/cart")
+@app.post("/api/cart")
 async def submit_cart(request: CartRequest):
     """
     Submit a cart for scraping - returns job_id instantly
@@ -257,7 +339,7 @@ async def submit_cart(request: CartRequest):
                 'items': request.items,
                 'zip_code': request.zipcode,  # CRITICAL: User's location
                 'submitted_at': datetime.now().isoformat(),
-                'max_products_per_item': 20
+                'max_products_per_item': 50
             }
             
             # Push to Redis queue
@@ -301,7 +383,7 @@ async def submit_cart(request: CartRequest):
         scrape_results = scrape_google_shopping(
             search_terms=request.items,
             zip_code=request.zipcode,
-            max_products_per_item=20,
+            max_products_per_item=50,
             use_parallel=False  # Sequential is safer for direct mode
         )
         
@@ -349,7 +431,7 @@ async def submit_cart(request: CartRequest):
         )
 
 
-@app.get("/results/{job_id}")
+@app.get("/api/results/{job_id}")
 async def get_job_results(job_id: str):
     """
     Get results for a queued job
@@ -375,9 +457,18 @@ async def get_job_results(job_id: str):
         
         if result_data.get('status') == 'complete':
             # Convert results to proper format
+            results = result_data.get('results', {})
+            
+            # DEBUG: Log first product's price
+            if results:
+                first_item = list(results.keys())[0]
+                if results[first_item]:
+                    first_price = results[first_item][0].get('price')
+                    logger.info(f"📊 API returning results - First product price: ${first_price} ({type(first_price)})")
+            
             return {
                 'status': 'complete',
-                'results': result_data.get('results', {}),
+                'results': results,
                 'zip_code': result_data.get('zip_code'),
                 'total_time': result_data.get('total_time'),
                 'worker_id': result_data.get('worker_id'),

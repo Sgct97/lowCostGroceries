@@ -201,10 +201,10 @@ class PersistentBrowserWorker:
             
             elapsed = time.time() - start_time
             
-            # Store results in Redis
+            # Store results in Redis (30 second TTL - NO LONG-TERM CACHE)
             self.redis_client.setex(
                 f'result:{job_id}',
-                3600,  # Keep results for 1 hour
+                30,  # Just long enough to retrieve results
                 json.dumps({
                     'status': 'complete',
                     'results': results,
