@@ -113,6 +113,7 @@ class CartRequest(BaseModel):
     """Request to build a shopping cart"""
     items: List[str] = Field(..., description="List of products to find")
     zipcode: str
+    prioritize_nearby: bool = Field(default=True, description="Prioritize stores nearby over best prices")
 
 class CartResponse(BaseModel):
     """Shopping cart with cheapest options"""
@@ -338,6 +339,7 @@ async def submit_cart(request: CartRequest):
                 'job_id': job_id,
                 'items': request.items,
                 'zip_code': request.zipcode,  # CRITICAL: User's location
+                'prioritize_nearby': request.prioritize_nearby,  # User's preference
                 'submitted_at': datetime.now().isoformat(),
                 'max_products_per_item': 50
             }

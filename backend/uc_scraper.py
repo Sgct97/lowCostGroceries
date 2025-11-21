@@ -184,7 +184,7 @@ class UCGoogleShoppingScraper:
         """Check if page is a CAPTCHA challenge"""
         return 'detected unusual traffic' in html or 'recaptcha' in html.lower()
     
-    def _extract_products(self, driver) -> List[Dict]:
+    def _extract_products(self, driver, prioritize_nearby: bool = True) -> List[Dict]:
         """Extract products from current page using PROVEN Selenium method"""
         html = driver.page_source
         
@@ -197,7 +197,7 @@ class UCGoogleShoppingScraper:
         from selenium.webdriver.common.by import By
         
         try:
-            # Get all merchant elements using CSS selector (EXACT method from working script)
+            # Get ALL merchant elements using CSS selector (PROVEN method from working script)
             merchant_elements = driver.find_elements(By.CSS_SELECTOR, "span.WJMUdc.rw5ecc")
             merchants = [m.text for m in merchant_elements if m.text]
             
@@ -206,7 +206,19 @@ class UCGoogleShoppingScraper:
             # Now extract products from aria-labels and match with merchants
             soup = BeautifulSoup(html, 'html.parser')
             products = []
-            product_elements = soup.find_all(attrs={'aria-label': True})
+            
+            # If user wants to prioritize nearby, try to find "In stores nearby" section
+            if prioritize_nearby:
+                nearby_section = soup.find('div', {'jsname': 'EvNWZc'})
+                if nearby_section:
+                    logger.info("✓ Found 'In stores nearby' section, filtering to local stores only")
+                    product_elements = nearby_section.find_all(attrs={'aria-label': True})
+                else:
+                    logger.info("✗ 'In stores nearby' section not found, falling back to all products")
+                    product_elements = soup.find_all(attrs={'aria-label': True})
+            else:
+                logger.info("ℹ️ Prioritize nearby = OFF, using all products for best prices")
+                product_elements = soup.find_all(attrs={'aria-label': True})
             
             merchant_idx = 0
             for element in product_elements:
@@ -281,7 +293,8 @@ class UCGoogleShoppingScraper:
         max_products: int = 50,
         wait_time: int = None,
         driver=None,
-        close_driver: bool = True
+        close_driver: bool = True,
+        prioritize_nearby: bool = True
     ) -> List[Dict]:
         """
         Search Google Shopping for a product in a specific location
@@ -321,6 +334,13 @@ class UCGoogleShoppingScraper:
             driver.get(url)
             time.sleep(wait_time)
             
+            # Scroll to load lazy-loaded products in "In stores nearby"
+            logger.info("Scrolling to load all products...")
+            driver.execute_script("window.scrollTo(0, document.body.scrollHeight/2);")
+            time.sleep(0.5)
+            driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+            time.sleep(0.5)
+            
             # Save HTML for debugging
             import os
             os.makedirs('/tmp/scraper_debug', exist_ok=True)
@@ -331,7 +351,7 @@ class UCGoogleShoppingScraper:
             logger.info(f"💾 Saved HTML: {debug_path}")
             
             # Extract products
-            products = self._extract_products(driver)
+            products = self._extract_products(driver, prioritize_nearby)
             
             logger.info(f"Found {len(products)} products")
             

@@ -342,6 +342,7 @@ findPricesBtn.addEventListener('click', () => {
  */
 async function submitCart() {
     state.zipCode = zipInput.value;
+    const prioritizeNearby = document.getElementById('prioritizeNearbyToggle').checked;
     goToStep(3);
     
     try {
@@ -350,7 +351,8 @@ async function submitCart() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 items: state.cart.map(item => item.name),
-                zipcode: state.zipCode
+                zipcode: state.zipCode,
+                prioritize_nearby: prioritizeNearby
             })
         });
         

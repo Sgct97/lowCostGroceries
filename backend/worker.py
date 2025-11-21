@@ -141,11 +141,13 @@ class PersistentBrowserWorker:
         items = job_data['items']
         zip_code = job_data['zip_code']  # CRITICAL: User's location
         max_products = job_data.get('max_products_per_item', 20)
+        prioritize_nearby = job_data.get('prioritize_nearby', True)  # Default to True for backward compatibility
         
         # LOG THE ZIP CODE (so we can verify it's being used)
         logger.info(f"📋 [{job_id[:8]}] Starting scrape")
         logger.info(f"   Items: {', '.join(items)}")
         logger.info(f"   📍 ZIP CODE: {zip_code} (LOCATION-SPECIFIC)")
+        logger.info(f"   🎯 Prioritize Nearby: {prioritize_nearby}")
         logger.info(f"   Max products: {max_products}")
         
         try:
@@ -187,7 +189,8 @@ class PersistentBrowserWorker:
                         max_products=max_products,
                         wait_time=wait_time,
                         driver=self.browser,  # Reuse persistent browser
-                        close_driver=False  # Keep browser open!
+                        close_driver=False,  # Keep browser open!
+                        prioritize_nearby=prioritize_nearby  # User's preference
                     )
                     
                     results[item] = products
