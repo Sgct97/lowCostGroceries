@@ -158,11 +158,17 @@ class UCGoogleShoppingScraper:
         options.add_argument("--disable-dev-shm-usage")
         options.add_argument("--start-maximized")
         options.add_argument("--disable-blink-features=AutomationControlled")
+        options.add_argument("--remote-debugging-port=0")  # Let Chrome pick random port
         
         # DO NOT USE --headless=new (causes CAPTCHA)
         # If on server, run with: xvfb-run -a python3 script.py
         
-        return uc.Chrome(options=options, use_subprocess=False)
+        return uc.Chrome(
+            options=options, 
+            use_subprocess=False,
+            driver_executable_path='/usr/bin/chromedriver',
+            browser_executable_path='/usr/bin/google-chrome'
+        )
     
     def _build_search_url(self, search_term: str, zip_code: str) -> str:
         """

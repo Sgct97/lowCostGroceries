@@ -1,6 +1,8 @@
 """
 Low Cost Groceries API
 FastAPI backend for finding cheapest groceries
+
+Uses Redis job queue for async scraping (no timeouts, handles 1000s of users)
 """
 
 from fastapi import FastAPI, HTTPException, BackgroundTasks
@@ -10,11 +12,39 @@ from typing import List, Optional, Dict
 import time
 from datetime import datetime
 import logging
+import redis
+import uuid
+import json
+import os
 
-# Import our production UC scraper
+# Import our production UC scraper (for direct mode if needed)
 from uc_scraper import search_products as scrape_google_shopping
 
+logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
+# ============================================================================
+# REDIS CONNECTION
+# ============================================================================
+
+# Connect to Redis (job queue + results storage)
+redis_host = os.environ.get('REDIS_HOST', 'localhost')
+redis_port = int(os.environ.get('REDIS_PORT', 6379))
+
+try:
+    redis_client = redis.Redis(
+        host=redis_host,
+        port=redis_port,
+        decode_responses=True,
+        socket_connect_timeout=5
+    )
+    # Test connection
+    redis_client.ping()
+    logger.info(f"✅ Connected to Redis at {redis_host}:{redis_port}")
+except Exception as e:
+    logger.error(f"❌ Failed to connect to Redis: {e}")
+    logger.warning("⚠️  API will run in DIRECT mode (no queue, slower, no concurrency)")
+    redis_client = None
 
 app = FastAPI(
     title="Low Cost Groceries API",
@@ -197,112 +227,188 @@ async def search_products_endpoint(request: SearchRequest, background_tasks: Bac
             detail=f"Failed to scrape products: {str(e)}"
         )
 
-@app.post("/cart", response_model=CartResponse)
-async def build_cart(request: CartRequest):
+@app.post("/cart")
+async def submit_cart(request: CartRequest):
     """
-    Build a shopping cart with the cheapest option for each item
+    Submit a cart for scraping - returns job_id instantly
     
-    Uses PARALLEL scraping for multiple items (FAST!)
-    Recommended: 2-3 parallel browsers per droplet
+    QUEUE MODE (default with Redis):
+    - Job added to Redis queue
+    - Returns job_id immediately (< 100ms)
+    - Client polls GET /results/{job_id} to get results
+    - Workers process jobs in background
+    
+    DIRECT MODE (if Redis unavailable):
+    - Scrapes immediately (blocks for 20-30s)
+    - Returns results directly
     """
     
-    logger.info(f"🛒 Building cart: {len(request.items)} items in ZIP {request.zipcode}")
+    logger.info(f"🛒 Cart submitted: {len(request.items)} items in ZIP {request.zipcode}")
     
-    # Check cache for each item first
-    cached_items = {}
-    items_to_scrape = []
-    
-    for item in request.items:
-        cached = get_from_cache(item, request.zipcode)
-        if cached:
-            cached_items[item] = cached.products
-        else:
-            items_to_scrape.append(item)
-    
-    logger.info(f"✅ Cache: {len(cached_items)} items | 🔍 Scraping: {len(items_to_scrape)} items")
-    
-    # Scrape uncached items in PARALLEL
-    scraped_items = {}
-    if items_to_scrape:
+    # QUEUE MODE (with Redis)
+    if redis_client:
         try:
-            scrape_results = scrape_google_shopping(
-                search_terms=items_to_scrape,
-                zip_code=request.zipcode,
-                max_products_per_item=20,
-                use_parallel=True  # Use parallel for multiple items!
+            # Generate unique job ID
+            job_id = str(uuid.uuid4())
+            
+            # Create job data
+            job_data = {
+                'job_id': job_id,
+                'items': request.items,
+                'zip_code': request.zipcode,  # CRITICAL: User's location
+                'submitted_at': datetime.now().isoformat(),
+                'max_products_per_item': 20
+            }
+            
+            # Push to Redis queue
+            redis_client.lpush('scrape_queue', json.dumps(job_data))
+            
+            # Set initial status
+            redis_client.setex(
+                f'status:{job_id}',
+                3600,  # 1 hour expiry
+                json.dumps({
+                    'status': 'queued',
+                    'submitted_at': job_data['submitted_at'],
+                    'zip_code': request.zipcode,
+                    'items': request.items
+                })
             )
             
-            # Convert to Product models and cache
-            for item, raw_products in scrape_results.items():
-                products = [
-                    Product(
-                        title=p.get('name'),
-                        price=p.get('price'),
-                        original_price=None,
-                        merchant=p.get('merchant', 'Unknown'),
-                        rating=p.get('rating'),
-                        review_count=p.get('review_count'),
-                        image_url=None,
-                        product_id=None
-                    )
-                    for p in raw_products
-                    if p.get('name') and p.get('price')
-                ]
-                scraped_items[item] = products
-                
-                # Cache for future requests
-                response = SearchResponse(
-                    query=item,
-                    zipcode=request.zipcode,
-                    products=products,
-                    total_found=len(products),
-                    cached=False
-                )
-                save_to_cache(item, request.zipcode, response)
+            # Estimate time based on queue size
+            queue_length = redis_client.llen('scrape_queue')
+            estimated_time = len(request.items) * 2  # ~2s per item
+            
+            logger.info(f"✅ Job {job_id[:8]}... queued (queue length: {queue_length})")
+            
+            return {
+                'job_id': job_id,
+                'status': 'queued',
+                'estimated_time_seconds': estimated_time,
+                'queue_position': queue_length,
+                'message': f'Job queued. Poll GET /results/{job_id} for results.'
+            }
         
         except Exception as e:
-            logger.error(f"❌ Parallel scraping failed: {e}")
-            raise HTTPException(
-                status_code=500,
-                detail=f"Failed to scrape products: {str(e)}"
-            )
+            logger.error(f"❌ Failed to queue job: {e}")
+            logger.warning("⚠️  Falling back to DIRECT mode...")
+            # Fall through to direct mode
     
-    # Combine cached + scraped results
-    all_results = {**cached_items, **scraped_items}
+    # DIRECT MODE (no Redis or Redis failed)
+    logger.info("⚙️  Running in DIRECT mode (blocking scrape)...")
     
-    # Build cart with cheapest options
-    items_dict = {}
-    total_cost = 0.0
-    total_savings = 0.0
-    store_breakdown = {}
-    
-    for item in request.items:
-        products = all_results.get(item, [])
+    try:
+        scrape_results = scrape_google_shopping(
+            search_terms=request.items,
+            zip_code=request.zipcode,
+            max_products_per_item=20,
+            use_parallel=False  # Sequential is safer for direct mode
+        )
         
-        if products:
-            # Get cheapest product
-            cheapest = min(products, key=lambda p: p.price)
-            items_dict[item] = cheapest
-            total_cost += cheapest.price
+        # Convert to response format
+        items_dict = {}
+        total_cost = 0.0
+        store_breakdown = {}
+        
+        for item in request.items:
+            products = scrape_results.get(item, [])
             
-            # Calculate savings
-            if cheapest.savings:
-                total_savings += cheapest.savings
-            
-            # Track by store
-            merchant = cheapest.merchant
-            store_breakdown[merchant] = store_breakdown.get(merchant, 0) + cheapest.price
+            if products:
+                # Get cheapest product
+                cheapest_raw = min(products, key=lambda p: p['price'])
+                cheapest = Product(
+                    title=cheapest_raw.get('name'),
+                    price=cheapest_raw.get('price'),
+                    merchant=cheapest_raw.get('merchant', 'Unknown'),
+                    rating=cheapest_raw.get('rating'),
+                    review_count=cheapest_raw.get('review_count')
+                )
+                items_dict[item] = cheapest
+                total_cost += cheapest.price
+                
+                # Track by store
+                merchant = cheapest.merchant
+                store_breakdown[merchant] = store_breakdown.get(merchant, 0) + cheapest.price
+        
+        return {
+            'status': 'complete',
+            'mode': 'direct',
+            'results': {
+                'items': items_dict,
+                'total_cost': round(total_cost, 2),
+                'total_savings': 0.0,
+                'store_breakdown': store_breakdown
+            }
+        }
+    
+    except Exception as e:
+        logger.error(f"❌ Direct scraping failed: {e}")
+        raise HTTPException(
+            status_code=500,
+            detail=f"Failed to scrape products: {str(e)}"
+        )
+
+
+@app.get("/results/{job_id}")
+async def get_job_results(job_id: str):
+    """
+    Get results for a queued job
+    
+    Responses:
+    - {"status": "queued"} - Job waiting in queue
+    - {"status": "processing", "progress": "..."} - Job being scraped
+    - {"status": "complete", "results": {...}} - Job done!
+    - {"status": "failed", "error": "..."} - Job failed
+    - {"status": "not_found"} - Job ID invalid or expired
+    """
+    
+    if not redis_client:
+        raise HTTPException(
+            status_code=501,
+            detail="Results endpoint requires Redis. API is running in DIRECT mode."
+        )
+    
+    # Check for completed results first
+    result = redis_client.get(f'result:{job_id}')
+    if result:
+        result_data = json.loads(result)
+        
+        if result_data.get('status') == 'complete':
+            # Convert results to proper format
+            return {
+                'status': 'complete',
+                'results': result_data.get('results', {}),
+                'zip_code': result_data.get('zip_code'),
+                'total_time': result_data.get('total_time'),
+                'worker_id': result_data.get('worker_id'),
+                'completed_at': result_data.get('completed_at')
+            }
         else:
-            logger.warning(f"⚠️  No products found for '{item}'")
+            # Failed
+            return {
+                'status': 'failed',
+                'error': result_data.get('error', 'Unknown error'),
+                'worker_id': result_data.get('worker_id')
+            }
     
-    logger.info(f"✅ Cart built: {len(items_dict)} items, ${total_cost:.2f} total")
+    # Check status
+    status = redis_client.get(f'status:{job_id}')
+    if status:
+        status_data = json.loads(status)
+        return {
+            'status': status_data.get('status'),
+            'zip_code': status_data.get('zip_code'),
+            'items': status_data.get('items'),
+            'submitted_at': status_data.get('submitted_at'),
+            'started_at': status_data.get('started_at'),
+            'worker_id': status_data.get('worker_id')
+        }
     
-    return CartResponse(
-        items=items_dict,
-        total_cost=round(total_cost, 2),
-        total_savings=round(total_savings, 2),
-        store_breakdown=store_breakdown
-    )
+    # Not found
+    return {
+        'status': 'not_found',
+        'message': 'Job ID not found or expired (results kept for 1 hour)'
+    }
 
 @app.get("/products/{product_id}")
 async def get_product(product_id: str):
