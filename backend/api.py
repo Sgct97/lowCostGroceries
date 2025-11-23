@@ -7,7 +7,7 @@ Uses Redis job queue for async scraping (no timeouts, handles 1000s of users)
 
 from fastapi import FastAPI, HTTPException, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, validator
 from typing import List, Optional, Dict
 import time
 from datetime import datetime
@@ -112,8 +112,22 @@ class SearchResponse(BaseModel):
 class CartRequest(BaseModel):
     """Request to build a shopping cart"""
     items: List[str] = Field(..., description="List of products to find")
-    zipcode: str
+    zipcode: str = Field(..., min_length=5, max_length=5, pattern=r'^\d{5}$')
     prioritize_nearby: bool = Field(default=True, description="Prioritize stores nearby over best prices")
+    
+    @validator('zipcode')
+    def validate_zipcode(cls, v):
+        """Ensure ZIP code is exactly 5 digits"""
+        if not v or not v.isdigit() or len(v) != 5:
+            raise ValueError('ZIP code must be exactly 5 digits (e.g., "33773")')
+        return v
+    
+    @validator('items')
+    def validate_items(cls, v):
+        """Ensure at least one item is provided"""
+        if not v or len(v) == 0:
+            raise ValueError('At least one item is required')
+        return v
 
 class CartResponse(BaseModel):
     """Shopping cart with cheapest options"""

@@ -1,0 +1,1081 @@
+{
+  "whole milk gallon": {
+    "in_store": [
+      {
+        "title": "Great Value Whole Milk",
+        "price": 2.62,
+        "source": "Walmart",
+        "extensions": [
+          "In store, Tampa"
+        ],
+        "rating": 3.5,
+        "reviews": 19000
+      },
+      {
+        "title": "Member's Mark Vitamin D Whole Milk 1 gal",
+        "price": 3.54,
+        "source": "Sam's Club",
+        "extensions": [
+          "In store, Clearwater"
+        ],
+        "rating": 4.2,
+        "reviews": 1500
+      },
+      {
+        "title": "Clover Valley Whole Milk Jug",
+        "price": 4.1,
+        "source": "Dollar General",
+        "extensions": [
+          "In store, Saint Petersburg"
+        ],
+        "rating": 1.7,
+        "reviews": 71
+      },
+      {
+        "title": "T. G. Lee Whole Milk Jug",
+        "price": 4.58,
+        "source": "Walmart",
+        "extensions": [
+          "In store, Tampa"
+        ],
+        "rating": 4.2,
+        "reviews": 58
+      },
+      {
+        "title": "Horizon Grassfed Whole Milk",
+        "price": 6.96,
+        "source": "Walmart",
+        "extensions": [
+          "In store, Clearwater"
+        ],
+        "rating": 4.3,
+        "reviews": 246
+      },
+      {
+        "title": "TruMoo Whole Chocolate Milk",
+        "price": 4.92,
+        "source": "Walmart",
+        "extensions": [
+          "In store, Tampa"
+        ],
+        "rating": 4.2,
+        "reviews": 620
+      },
+      {
+        "title": "Borden Milk with Vitamin D",
+        "price": 5.72,
+        "source": "Walmart",
+        "extensions": [
+          "In store, Palmetto"
+        ],
+        "rating": 2.9,
+        "reviews": 140
+      },
+      {
+        "title": "Kreider Farms Whole Milk with Vitamin D",
+        "price": 5.99,
+        "source": "Gordon Food Service Store",
+        "extensions": [
+          "In store, Clearwater"
+        ],
+        "rating": null,
+        "reviews": null
+      }
+    ],
+    "online": [
+      {
+        "title": "Kroger Whole Milk Grade A",
+        "price": 2.59,
+        "source": "Cooklist",
+        "extensions": [],
+        "rating": null,
+        "reviews": null
+      },
+      {
+        "title": "Prairie Farms Whole Milk",
+        "price": 2.99,
+        "source": "Papaya Express",
+        "extensions": [
+          "40% OFF"
+        ],
+        "rating": 4.3,
+        "reviews": 451
+      },
+      {
+        "title": "Organic Whole Milk Straus Family Creamery",
+        "price": 7.29,
+        "source": "New Indian Supermarket, Tracy",
+        "extensions": [],
+        "rating": 5.0,
+        "reviews": 2
+      },
+      {
+        "title": "Kirkland Signature Homogenized Milk, 2 gal",
+        "price": 7.14,
+        "source": "Costco Wholesale",
+        "extensions": [],
+        "rating": null,
+        "reviews": null
+      },
+      {
+        "title": "Clover Sonoma Conventional Whole Milk Quart",
+        "price": 6.99,
+        "source": "Raley's Dev",
+        "extensions": [],
+        "rating": null,
+        "reviews": null
+      },
+      {
+        "title": "Berkeley Farms Whole Milk",
+        "price": 5.29,
+        "source": "Smart & Final",
+        "extensions": [
+          "LOW PRICE"
+        ],
+        "rating": 5.0,
+        "reviews": 2
+      },
+      {
+        "title": "Publix Whole Milk",
+        "price": 3.99,
+        "source": "Cooklist",
+        "extensions": [],
+        "rating": 5.0,
+        "reviews": 1
+      },
+      {
+        "title": "Organic Valley Whole Milk",
+        "price": 3.97,
+        "source": "BevMo!",
+        "extensions": [],
+        "rating": 4.7,
+        "reviews": 1300
+      },
+      {
+        "title": "Whole Milk Gallon, 64 oz.",
+        "price": 2.69,
+        "source": "Farmers Hands Markets",
+        "extensions": [],
+        "rating": null,
+        "reviews": null
+      },
+      {
+        "title": "H-E-B Whole Milk",
+        "price": 3.67,
+        "source": "Central Market",
+        "extensions": [],
+        "rating": null,
+        "reviews": null
+      },
+      {
+        "title": "Bayview Farms Milk 1 gal",
+        "price": 4.99,
+        "source": "Save Mart",
+        "extensions": [],
+        "rating": null,
+        "reviews": null
+      },
+      {
+        "title": "Friendly Farm Whole Milk 1gal",
+        "price": 3.99,
+        "source": "Subhlaxmi Grocers",
+        "extensions": [
+          "20% OFF"
+        ],
+        "rating": null,
+        "reviews": null
+      },
+      {
+        "title": "Hiland Whole Milk 1 Gallon",
+        "price": 5.39,
+        "source": "brookshires.com",
+        "extensions": [],
+        "rating": null,
+        "reviews": null
+      },
+      {
+        "title": "Alta Dena Vitamin D Whole Milk",
+        "price": 7.49,
+        "source": "Brothers Fresh Marketplace",
+        "extensions": [],
+        "rating": 4.6,
+        "reviews": 403
+      },
+      {
+        "title": "Darigold Whole Milk",
+        "price": 5.49,
+        "source": "Apna Bazar",
+        "extensions": [],
+        "rating": 3.8,
+        "reviews": 107
+      },
+      {
+        "title": "Whole Milk Gallon",
+        "price": 4.49,
+        "source": "Fresh Central Grocery",
+        "extensions": [],
+        "rating": null,
+        "reviews": null
+      },
+      {
+        "title": "Horizon Organic Whole Milk",
+        "price": 3.97,
+        "source": "BevMo!",
+        "extensions": [
+          "42% OFF"
+        ],
+        "rating": 4.7,
+        "reviews": 47
+      },
+      {
+        "title": "King Soopers City Market Whole Milk",
+        "price": 3.19,
+        "source": "Cooklist",
+        "extensions": [],
+        "rating": null,
+        "reviews": null
+      },
+      {
+        "title": "Giant Vitamin D Whole Milk",
+        "price": 3.99,
+        "source": "Giant Food",
+        "extensions": [],
+        "rating": null,
+        "reviews": null
+      },
+      {
+        "title": "Central Dairy Whole Milk Gallon",
+        "price": 5.49,
+        "source": "Moser's Foods",
+        "extensions": [],
+        "rating": null,
+        "reviews": null
+      },
+      {
+        "title": "Mayfield Dairy Farms Milk, Whole, 1 gal (3.78 l)",
+        "price": 5.59,
+        "source": "Food Depot",
+        "extensions": [],
+        "rating": 4.7,
+        "reviews": 289
+      },
+      {
+        "title": "Crystal Creamery Whole Milk with Vitamin D",
+        "price": 1.97,
+        "source": "BevMo!",
+        "extensions": [],
+        "rating": 3.8,
+        "reviews": 62
+      },
+      {
+        "title": "Our Family Whole Milk",
+        "price": 3.79,
+        "source": "Tom's Food Center",
+        "extensions": [],
+        "rating": null,
+        "reviews": null
+      },
+      {
+        "title": "Kirkland Whole Milk 1 Gallon",
+        "price": 0.99,
+        "source": "InstaMandi",
+        "extensions": [],
+        "rating": null,
+        "reviews": null
+      },
+      {
+        "title": "Great Value Organic Whole Milk 1 Gallon",
+        "price": 7.17,
+        "source": "Cooklist",
+        "extensions": [],
+        "rating": 3.5,
+        "reviews": 482
+      },
+      {
+        "title": "Country Fresh Whole Milk 1 Gal.",
+        "price": 5.24,
+        "source": "marketbasketfoods.com",
+        "extensions": [],
+        "rating": 3.0,
+        "reviews": 4
+      },
+      {
+        "title": "Organic Pastures Raw Milk",
+        "price": 20.99,
+        "source": "newleaf.com",
+        "extensions": [],
+        "rating": null,
+        "reviews": null
+      },
+      {
+        "title": "Jersey Dairy Farms Whole Milk 1 Gallon",
+        "price": 5.99,
+        "source": "Fresh Central Grocery",
+        "extensions": [],
+        "rating": null,
+        "reviews": null
+      },
+      {
+        "title": "Lowes Foods Whole Milk",
+        "price": 2.49,
+        "source": "Lowes Foods",
+        "extensions": [],
+        "rating": null,
+        "reviews": null
+      },
+      {
+        "title": "Brookshire's Milk Whole",
+        "price": 3.59,
+        "source": "brookshires.com",
+        "extensions": [],
+        "rating": null,
+        "reviews": null
+      },
+      {
+        "title": "Whole Milk - Gallon",
+        "price": 3.99,
+        "source": "Town & Country Markets",
+        "extensions": [],
+        "rating": null,
+        "reviews": null
+      },
+      {
+        "title": "Cub Whole Milk",
+        "price": 3.99,
+        "source": "Cooklist",
+        "extensions": [],
+        "rating": null,
+        "reviews": null
+      }
+    ]
+  },
+  "large eggs": {
+    "in_store": [
+      {
+        "title": "Nice! Grade A Cage Free Large Eggs",
+        "price": 3.49,
+        "source": "Walgreens.com",
+        "extensions": [
+          "In store, Clearwater"
+        ],
+        "rating": null,
+        "reviews": null
+      },
+      {
+        "title": "Cal-Maine Foods, Inc. Fresh Eggs",
+        "price": 35.11,
+        "source": "Sam's Club",
+        "extensions": [
+          "In store, Clearwater"
+        ],
+        "rating": 4.2,
+        "reviews": 356
+      },
+      {
+        "title": "Gordon Choice Fresh Large Eggs, 30ea",
+        "price": 6.49,
+        "source": "Gordon Food Service Store",
+        "extensions": [
+          "In store, Clearwater"
+        ],
+        "rating": null,
+        "reviews": null
+      },
+      {
+        "title": "Eggland's Best Cage Free Large Brown Eggs",
+        "price": 4.79,
+        "source": "Target",
+        "extensions": [
+          "In store, Riverview"
+        ],
+        "rating": 4.5,
+        "reviews": 2100
+      },
+      {
+        "title": "Large Grade A Eggs",
+        "price": 3.31,
+        "source": "Instacart",
+        "extensions": [
+          "In store, St. Petersburg",
+          "17% OFF"
+        ],
+        "rating": null,
+        "reviews": null
+      },
+      {
+        "title": "Gordon Choice Large Fresh Eggs, 180ea",
+        "price": 33.99,
+        "source": "Gordon Food Service Store",
+        "extensions": [
+          "In store, Clearwater"
+        ],
+        "rating": null,
+        "reviews": null
+      },
+      {
+        "title": "Vital Farms Pasture-Raised Large Eggs",
+        "price": 6.89,
+        "source": "Target",
+        "extensions": [
+          "In store, Trinity"
+        ],
+        "rating": 4.3,
+        "reviews": 849
+      },
+      {
+        "title": "Dollar General Market Clover Valley Eggs Large Grade A Dozen",
+        "price": 2.25,
+        "source": "Dollar General",
+        "extensions": [
+          "In store, Saint Petersburg"
+        ],
+        "rating": null,
+        "reviews": null
+      },
+      {
+        "title": "Sun Up Grade A Large Eggs",
+        "price": 4.79,
+        "source": "Gordon Food Service Store",
+        "extensions": [
+          "In store, Clearwater"
+        ],
+        "rating": null,
+        "reviews": null
+      },
+      {
+        "title": "Farmhouse Eggs Cage Free Large Brown Eggs",
+        "price": 5.84,
+        "source": "Walmart",
+        "extensions": [
+          "In store, Gibsonton"
+        ],
+        "rating": 2.7,
+        "reviews": 334
+      },
+      {
+        "title": "Happy Egg Co. Organic Free Range Eggs",
+        "price": 6.89,
+        "source": "Target",
+        "extensions": [
+          "In store, Trinity"
+        ],
+        "rating": 3.5,
+        "reviews": 1000
+      },
+      {
+        "title": "Dairy Fresh Large Grade A Eggs, 12ea",
+        "price": 3.49,
+        "source": "Gordon Food Service Store",
+        "extensions": [
+          "In store, St. Petersburg"
+        ],
+        "rating": null,
+        "reviews": null
+      },
+      {
+        "title": "Nellie's Eggs Free Range Large 18 EA",
+        "price": 7.94,
+        "source": "Walmart",
+        "extensions": [
+          "In store, Tampa"
+        ],
+        "rating": 3.5,
+        "reviews": 68
+      },
+      {
+        "title": "Happy Egg Free Range Large Brown Eggs",
+        "price": 6.63,
+        "source": "Instacart",
+        "extensions": [
+          "In store, St. Petersburg"
+        ],
+        "rating": 4.6,
+        "reviews": 473
+      }
+    ],
+    "online": [
+      {
+        "title": "Eggland's Best Grade A Large Eggs",
+        "price": 3.99,
+        "source": "Lowes Foods",
+        "extensions": [
+          "Also nearby"
+        ],
+        "rating": 4.5,
+        "reviews": 3500
+      },
+      {
+        "title": "Great Value Large White Eggs",
+        "price": 2.34,
+        "source": "Cooklist",
+        "extensions": [],
+        "rating": 3.0,
+        "reviews": 24000
+      },
+      {
+        "title": "Eggland's Best Grade A Extra Large Eggs",
+        "price": 4.29,
+        "source": "Lowes Foods",
+        "extensions": [],
+        "rating": 4.6,
+        "reviews": 2000
+      },
+      {
+        "title": "Bayview Farms Large Grade AA Eggs 60 ct",
+        "price": 21.99,
+        "source": "Save Mart",
+        "extensions": [],
+        "rating": null,
+        "reviews": null
+      },
+      {
+        "title": "Vital Farms Pasture Raised Eggs",
+        "price": 9.49,
+        "source": "Cooklist",
+        "extensions": [
+          "Also nearby",
+          "LOW PRICE"
+        ],
+        "rating": 4.2,
+        "reviews": 77
+      },
+      {
+        "title": "Pete & Gerry's Pasture Raised Large Eggs",
+        "price": 7.29,
+        "source": "Giant Food",
+        "extensions": [],
+        "rating": 3.0,
+        "reviews": 1
+      },
+      {
+        "title": "Hill Country Fare Grade A Large Eggs",
+        "price": 3.49,
+        "source": "Instacart",
+        "extensions": [],
+        "rating": null,
+        "reviews": null
+      },
+      {
+        "title": "H-E-B Grade AA Cage Free Large White Eggs",
+        "price": 3.84,
+        "source": "Central Market",
+        "extensions": [],
+        "rating": null,
+        "reviews": null
+      },
+      {
+        "title": "Wilcox Family Farms Eggs, Large, Brown, Omega-3",
+        "price": 9.07,
+        "source": "Costco Wholesale",
+        "extensions": [],
+        "rating": null,
+        "reviews": null
+      },
+      {
+        "title": "Great Value Grade A Large White Eggs",
+        "price": 0.68,
+        "source": "Cooklist",
+        "extensions": [],
+        "rating": 2.8,
+        "reviews": 3900
+      },
+      {
+        "title": "Giant Jumbo White Eggs",
+        "price": 4.29,
+        "source": "Giant Food",
+        "extensions": [],
+        "rating": null,
+        "reviews": null
+      },
+      {
+        "title": "Store Brand Eggs, Large, Grade A",
+        "price": 2.29,
+        "source": "Tops Markets",
+        "extensions": [],
+        "rating": null,
+        "reviews": null
+      },
+      {
+        "title": "Brookshire's Eggs Large White 36 Ct",
+        "price": 6.59,
+        "source": "brookshires.com",
+        "extensions": [
+          "LOW PRICE"
+        ],
+        "rating": null,
+        "reviews": null
+      },
+      {
+        "title": "Trafficanda Ranch Fresh Jumbo Grade A Eggs",
+        "price": 3.99,
+        "source": "Brothers Fresh Marketplace",
+        "extensions": [],
+        "rating": null,
+        "reviews": null
+      },
+      {
+        "title": "Weiss Large Eggs",
+        "price": 3.29,
+        "source": "Instacart",
+        "extensions": [],
+        "rating": null,
+        "reviews": null
+      },
+      {
+        "title": "Giant Large White Eggs",
+        "price": 3.49,
+        "source": "Giant Food",
+        "extensions": [],
+        "rating": null,
+        "reviews": null
+      },
+      {
+        "title": "Great Value Grade AA Large White Eggs",
+        "price": 1.6,
+        "source": "Cooklist",
+        "extensions": [],
+        "rating": 2.7,
+        "reviews": 249
+      },
+      {
+        "title": "Lowes Foods Jumbo Grade A Dozen White Eggs",
+        "price": 2.59,
+        "source": "Lowes Foods",
+        "extensions": [],
+        "rating": null,
+        "reviews": null
+      },
+      {
+        "title": "Country Lane Grade A Large Eggs",
+        "price": 1.49,
+        "source": "lundsandbyerlys.com",
+        "extensions": [],
+        "rating": 5.0,
+        "reviews": 2
+      },
+      {
+        "title": "S&R Grade A Large Eggs",
+        "price": 2.59,
+        "source": "Instacart",
+        "extensions": [],
+        "rating": null,
+        "reviews": null
+      },
+      {
+        "title": "Giant Extra Large White Eggs",
+        "price": 3.99,
+        "source": "Giant Food",
+        "extensions": [],
+        "rating": null,
+        "reviews": null
+      },
+      {
+        "title": "Good & Gather Grade A Large Eggs",
+        "price": 5.99,
+        "source": "Cooklist",
+        "extensions": [],
+        "rating": 2.9,
+        "reviews": 503
+      },
+      {
+        "title": "Pete & Gerry's Organic Free Range Large Eggs",
+        "price": 5.99,
+        "source": "brookshires.com",
+        "extensions": [
+          "20% OFF"
+        ],
+        "rating": 3.3,
+        "reviews": 165
+      },
+      {
+        "title": "H-E-B Grade AA Extra Large White Eggs",
+        "price": 4.14,
+        "source": "Central Market",
+        "extensions": [],
+        "rating": null,
+        "reviews": null
+      },
+      {
+        "title": "Land O Lakes Organic Large Brown Eggs",
+        "price": 4.59,
+        "source": "Giant Food",
+        "extensions": [],
+        "rating": null,
+        "reviews": null
+      },
+      {
+        "title": "Martin's Large Eggs",
+        "price": 4.99,
+        "source": "Instacart",
+        "extensions": [],
+        "rating": null,
+        "reviews": null
+      }
+    ]
+  },
+  "white bread": {
+    "in_store": [
+      {
+        "title": "Wonder Bread Classic White",
+        "price": 3.0,
+        "source": "Dollar General",
+        "extensions": [
+          "In store, Saint Petersburg"
+        ],
+        "rating": 3.5,
+        "reviews": 1900
+      },
+      {
+        "title": "Hostess Classic Enriched Plain White Bread Bag",
+        "price": 3.99,
+        "source": "Walgreens.com",
+        "extensions": [
+          "In store, Clearwater"
+        ],
+        "rating": null,
+        "reviews": null
+      },
+      {
+        "title": "Bimbo Large White Bread",
+        "price": 1.98,
+        "source": "Walmart",
+        "extensions": [
+          "In store, Port Richey"
+        ],
+        "rating": 4.4,
+        "reviews": 231
+      },
+      {
+        "title": "Pepperidge Farm Farmhouse Hearty White Bread",
+        "price": 3.99,
+        "source": "Target",
+        "extensions": [
+          "In store, Trinity"
+        ],
+        "rating": 4.5,
+        "reviews": 832
+      },
+      {
+        "title": "Nature's Own Homestyle Small Loaf White Bread",
+        "price": 2.5,
+        "source": "Dollar General",
+        "extensions": [
+          "In store, Saint Petersburg"
+        ],
+        "rating": 3.7,
+        "reviews": 59
+      },
+      {
+        "title": "Sara Lee Artesano Bread",
+        "price": 3.57,
+        "source": "Walmart",
+        "extensions": [
+          "In store, Tampa"
+        ],
+        "rating": 4.4,
+        "reviews": 2100
+      },
+      {
+        "title": "Wonder Bread Classic White 24oz",
+        "price": 3.65,
+        "source": "Dollar General",
+        "extensions": [
+          "In store, Dunedin"
+        ],
+        "rating": 3.5,
+        "reviews": 306
+      },
+      {
+        "title": "Bimbo Bread Soft White 20 Ounces",
+        "price": 1.99,
+        "source": "Target",
+        "extensions": [
+          "In store, Trinity"
+        ],
+        "rating": 4.0,
+        "reviews": 968
+      },
+      {
+        "title": "Nature's Own Perfectly Crafted Thick Sliced White Bread",
+        "price": 2.97,
+        "source": "Walmart",
+        "extensions": [
+          "In store, Tampa",
+          "13% OFF"
+        ],
+        "rating": 4.2,
+        "reviews": 377
+      },
+      {
+        "title": "Clover Valley Enriched White Sandwich Bread",
+        "price": 1.5,
+        "source": "Dollar General",
+        "extensions": [
+          "In store, Saint Petersburg"
+        ],
+        "rating": 4.4,
+        "reviews": 12
+      },
+      {
+        "title": "Dave's Killer Bread Organic White Bread",
+        "price": 6.19,
+        "source": "Target",
+        "extensions": [
+          "In store, Riverview"
+        ],
+        "rating": 4.1,
+        "reviews": 849
+      },
+      {
+        "title": "Nature's Own Whitewheat Bread",
+        "price": 3.42,
+        "source": "Walmart",
+        "extensions": [
+          "In store, Tampa"
+        ],
+        "rating": 3.6,
+        "reviews": 173
+      },
+      {
+        "title": "Nature's Own Butterbread Bread",
+        "price": 3.65,
+        "source": "Dollar General",
+        "extensions": [
+          "In store, Saint Petersburg"
+        ],
+        "rating": 4.2,
+        "reviews": 3300
+      },
+      {
+        "title": "Sara Lee Whole Grain White Bread",
+        "price": 3.29,
+        "source": "Target",
+        "extensions": [
+          "In store, Trinity"
+        ],
+        "rating": 4.0,
+        "reviews": 615
+      },
+      {
+        "title": "BFree Homestyle Sourdough Loaf",
+        "price": 5.97,
+        "source": "Walmart",
+        "extensions": [
+          "In store, Lutz"
+        ],
+        "rating": 4.7,
+        "reviews": 240
+      },
+      {
+        "title": "Pepperidge Farm Bread Sandwich White",
+        "price": 5.31,
+        "source": "Instacart",
+        "extensions": [
+          "In store, St. Petersburg"
+        ],
+        "rating": 4.5,
+        "reviews": 211
+      },
+      {
+        "title": "Nature's Own Keto Soft White Bread",
+        "price": 6.95,
+        "source": "Dollar General",
+        "extensions": [
+          "In store, Tampa"
+        ],
+        "rating": 3.4,
+        "reviews": 1000
+      }
+    ],
+    "online": [
+      {
+        "title": "Pepperidge Farm Very Thin White Bread",
+        "price": 3.63,
+        "source": "Food Depot",
+        "extensions": [
+          "Also nearby"
+        ],
+        "rating": 4.5,
+        "reviews": 248
+      },
+      {
+        "title": "Simply Value Enriched White Bread",
+        "price": 1.99,
+        "source": "Smart & Final",
+        "extensions": [],
+        "rating": null,
+        "reviews": null
+      },
+      {
+        "title": "Great Value White Sandwich Bread",
+        "price": 1.42,
+        "source": "Cooklist",
+        "extensions": [],
+        "rating": 3.3,
+        "reviews": 4700
+      },
+      {
+        "title": "Schmidt Blue Ribbon King Enriched White Sliced Bread",
+        "price": 3.89,
+        "source": "Giant Food",
+        "extensions": [],
+        "rating": 4.5,
+        "reviews": 23
+      },
+      {
+        "title": "Hero Classic White Bread",
+        "price": 43.99,
+        "source": "Hero",
+        "extensions": [],
+        "rating": 4.7,
+        "reviews": 4700
+      },
+      {
+        "title": "White Bread",
+        "price": 3.29,
+        "source": "Instacart",
+        "extensions": [],
+        "rating": null,
+        "reviews": null
+      },
+      {
+        "title": "Wonder Bread Classic White Sandwich Bread Sliced White Bread 20 oz (Pack of 3)",
+        "price": 14.51,
+        "source": "Walmart - CMB Trading",
+        "extensions": [],
+        "rating": 4.7,
+        "reviews": 153
+      },
+      {
+        "title": "Nature's Harvest Half Loaf White Sandwich Bread",
+        "price": 1.99,
+        "source": "FoodMaxx",
+        "extensions": [],
+        "rating": 5.0,
+        "reviews": 2
+      },
+      {
+        "title": "Wonder Classic White Sliced Bread",
+        "price": 2.99,
+        "source": "Giant Food",
+        "extensions": [],
+        "rating": 3.5,
+        "reviews": 1900
+      },
+      {
+        "title": "H-E-B Bake Shop Large White Round Top Enriched Bread",
+        "price": 2.48,
+        "source": "Cooklist",
+        "extensions": [],
+        "rating": null,
+        "reviews": null
+      },
+      {
+        "title": "Oroweat Organic Rustic White Bread",
+        "price": 5.69,
+        "source": "Grocery Outlet",
+        "extensions": [],
+        "rating": 3.0,
+        "reviews": 2
+      },
+      {
+        "title": "Sara Lee Classic White Bread",
+        "price": 2.62,
+        "source": "Walmart - DIZIBIZ",
+        "extensions": [],
+        "rating": 3.9,
+        "reviews": 669
+      },
+      {
+        "title": "Old Tyme Omega Me Crazy Bread",
+        "price": 3.99,
+        "source": "Giant Food",
+        "extensions": [],
+        "rating": null,
+        "reviews": null
+      },
+      {
+        "title": "Dempster's White Bread",
+        "price": 2.29,
+        "source": "Instacart",
+        "extensions": [],
+        "rating": null,
+        "reviews": null
+      },
+      {
+        "title": "Great Value White Round Top Bread",
+        "price": 1.42,
+        "source": "Cooklist",
+        "extensions": [],
+        "rating": 3.4,
+        "reviews": 3500
+      },
+      {
+        "title": "Sunbeam Enriched Split Top White Bread",
+        "price": 3.99,
+        "source": "brookshires.com",
+        "extensions": [],
+        "rating": 3.4,
+        "reviews": 5
+      },
+      {
+        "title": "Bimbo White Bread Soft Pre-Sliced White Loaf (Pack of 2)",
+        "price": 10.01,
+        "source": "Walmart - Seller",
+        "extensions": [],
+        "rating": 5.0,
+        "reviews": 1
+      },
+      {
+        "title": "Alfaro's Artesano Original Bread Sliced 20oz",
+        "price": 3.99,
+        "source": "Smart & Final",
+        "extensions": [],
+        "rating": 4.0,
+        "reviews": 128
+      },
+      {
+        "title": "Devon Market Fresh & Soft Bread",
+        "price": 1.99,
+        "source": "Tony's Fresh Market",
+        "extensions": [
+          "13% OFF"
+        ],
+        "rating": 3.0,
+        "reviews": 2
+      },
+      {
+        "title": "Half Loaf Bread Co. Classic White",
+        "price": 4.99,
+        "source": "Giant Food",
+        "extensions": [],
+        "rating": null,
+        "reviews": null
+      },
+      {
+        "title": "Stroehmann King Plain White Bread Bag",
+        "price": 3.49,
+        "source": "Weaver Markets",
+        "extensions": [],
+        "rating": 3.0,
+        "reviews": 55
+      },
+      {
+        "title": "Kroger White Sandwich Bread",
+        "price": 1.99,
+        "source": "Cooklist",
+        "extensions": [],
+        "rating": null,
+        "reviews": null
+      },
+      {
+        "title": "Wonder Bread Classic White Sandwich Bread",
+        "price": 13.21,
+        "source": "Walmart - Seller",
+        "extensions": [],
+        "rating": null,
+        "reviews": null
+      }
+    ]
+  }
+}

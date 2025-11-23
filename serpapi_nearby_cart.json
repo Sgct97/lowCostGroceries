@@ -1,0 +1,16 @@
+{
+  "whole milk gallon": [],
+  "large eggs": [
+    {
+      "title": "Eggland's Best Grade A Large Eggs",
+      "price": 3.99,
+      "source": "Lowes Foods",
+      "extensions": [
+        "Also nearby"
+      ],
+      "rating": 4.5,
+      "reviews": 3500
+    }
+  ],
+  "white bread": []
+}

@@ -811,6 +811,13 @@ body {
     text-align: right;
 }
 
+.product-location {
+    font-size: 12px;
+    color: var(--primary);
+    margin-top: 4px;
+    font-weight: 500;
+}
+
 .best-badge {
     display: inline-flex;
     align-items: center;

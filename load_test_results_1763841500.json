@@ -1,0 +1,53 @@
+{
+  "Light Load": {
+    "total_requests": 8,
+    "successful": 8,
+    "failed": 0,
+    "success_rate": "100.0%",
+    "duration_seconds": "80.0",
+    "requests_per_second": "0.10",
+    "response_time_avg": "18.2s",
+    "response_time_min": "8.5s",
+    "response_time_max": "27.5s",
+    "response_time_p50": "20.0s",
+    "response_time_p95": "N/A"
+  },
+  "Medium Load": {
+    "total_requests": 34,
+    "successful": 31,
+    "failed": 3,
+    "success_rate": "91.2%",
+    "duration_seconds": "210.1",
+    "requests_per_second": "0.16",
+    "response_time_avg": "48.4s",
+    "response_time_min": "8.5s",
+    "response_time_max": "88.0s",
+    "response_time_p50": "50.4s",
+    "response_time_p95": "88.0s",
+    "error_breakdown": {
+      "Timeout (90s)": 3
+    }
+  },
+  "Heavy Load": {
+    "total_requests": 68,
+    "successful": 0,
+    "failed": 68,
+    "success_rate": "0.0%",
+    "duration_seconds": "215.1",
+    "requests_per_second": "0.32",
+    "error_breakdown": {
+      "Timeout (90s)": 68
+    }
+  },
+  "Stress Test": {
+    "total_requests": 51,
+    "successful": 0,
+    "failed": 51,
+    "success_rate": "0.0%",
+    "duration_seconds": "155.1",
+    "requests_per_second": "0.33",
+    "error_breakdown": {
+      "Timeout (90s)": 51
+    }
+  }
+}

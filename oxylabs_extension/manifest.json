@@ -1,0 +1,18 @@
+{
+    "manifest_version": 3,
+    "version": "1.0.0",
+    "name": "Oxylabs Rotating Proxy",
+    "description": "Automatic proxy authentication for Oxylabs",
+    "background": {
+        "service_worker": "background.js"
+    },
+    "permissions": [
+        "proxy",
+        "webRequest",
+        "webRequestAuthProvider"
+    ],
+    "host_permissions": [
+        "<all_urls>"
+    ]
+}
+

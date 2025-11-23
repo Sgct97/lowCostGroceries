@@ -1,9 +1,15 @@
 #!/usr/bin/env python3
 """
-Production Worker with Persistent Browser Pool
+Production Worker with Flexible Scraper Backend
 Pulls jobs from Redis queue and scrapes products
 
 CRITICAL: Preserves location-specific scraping by passing ZIP code to every search
+
+Supports two scraper backends:
+- SerpAPI (fast, reliable, no blocking) - DEFAULT
+- UC Browser (fallback, slower but proven)
+
+Controlled by SCRAPER_BACKEND environment variable
 """
 
 import redis
@@ -14,10 +20,22 @@ import os
 import sys
 from typing import Dict, List, Optional
 from datetime import datetime
+from dotenv import load_dotenv
 
-# Import our proven UC scraper
-from uc_scraper import UCGoogleShoppingScraper
+# Load environment variables from .env file
+load_dotenv()
 
+# Import scraper based on environment variable
+SCRAPER_BACKEND = os.getenv('SCRAPER_BACKEND', 'serpapi').lower()
+
+if SCRAPER_BACKEND == 'serpapi':
+    from serpapi_scraper import get_scraper
+    USING_SERPAPI = True
+else:
+    from uc_scraper import UCGoogleShoppingScraper
+    USING_SERPAPI = False
+
+# Configure logging BEFORE any log messages
 logging.basicConfig(
     level=logging.DEBUG,  # Changed to DEBUG for more verbose output
     format='%(asctime)s [%(levelname)s] %(message)s',
@@ -27,6 +45,12 @@ logging.basicConfig(
     ]
 )
 logger = logging.getLogger(__name__)
+
+# Log which backend we're using (after logging is configured!)
+if USING_SERPAPI:
+    logger.info("🚀 Using SerpAPI scraper backend")
+else:
+    logger.info("🌐 Using UC Browser scraper backend")
 
 
 class PersistentBrowserWorker:
@@ -66,9 +90,23 @@ class PersistentBrowserWorker:
         logger.info(f"🚀 {self.worker_id} initialized")
         logger.info(f"   Redis: {redis_host}:{redis_port}")
         logger.info(f"   Browser restart policy: {self.max_jobs_per_browser} jobs OR {self.max_browser_age_seconds/60:.0f} minutes")
+        
+        # Initialize scraper immediately
+        if USING_SERPAPI:
+            logger.info("🔧 Initializing SerpAPI scraper...")
+            self.scraper = get_scraper()
+            self.browser = None
+            logger.info("✅ SerpAPI scraper ready!")
+        else:
+            # UC Browser will be initialized on first job (via _start_browser)
+            logger.info("🌐 UC Browser will be initialized on first job")
     
     def _should_restart_browser(self) -> bool:
         """Check if browser should be restarted"""
+        # SerpAPI doesn't use browser, no restarts needed
+        if USING_SERPAPI:
+            return False
+        
         if not self.browser or not self.browser_start_time:
             return True
         
@@ -86,34 +124,49 @@ class PersistentBrowserWorker:
         return False
     
     def _start_browser(self):
-        """Start a new UC browser instance"""
+        """Start a new UC browser instance (or initialize SerpAPI scraper)"""
         try:
-            if self.browser:
+            if self.browser and not USING_SERPAPI:
                 logger.info("🛑 Closing old browser...")
                 try:
                     self.browser.quit()
                 except:
                     pass
             
-            logger.info("🌐 Starting new UC browser...")
-            logger.info(f"   DISPLAY env: {os.environ.get('DISPLAY', 'not set')}")
-            logger.info(f"   XVFB env: {os.environ.get('XVFB', 'not set')}")
-            start = time.time()
-            
-            # Check if running in server environment
-            use_xvfb = os.environ.get('DISPLAY') is None or os.environ.get('XVFB') == '1'
-            logger.info(f"   use_xvfb: {use_xvfb}")
-            
-            self.scraper = UCGoogleShoppingScraper(use_xvfb=use_xvfb)
-            logger.info("   Scraper object created, setting up driver...")
-            
-            self.browser = self.scraper._setup_driver()
-            
-            elapsed = time.time() - start
-            logger.info(f"✅ Browser ready in {elapsed:.1f}s (xvfb={use_xvfb})")
-            
-            self.browser_start_time = time.time()
-            self.jobs_completed = 0
+            if USING_SERPAPI:
+                # SerpAPI doesn't need browser setup
+                logger.info("🚀 Initializing SerpAPI scraper...")
+                start = time.time()
+                
+                self.scraper = get_scraper()
+                self.browser = None  # No browser needed
+                
+                elapsed = time.time() - start
+                logger.info(f"✅ SerpAPI scraper ready in {elapsed:.3f}s")
+                
+                self.browser_start_time = time.time()
+                self.jobs_completed = 0
+            else:
+                # UC Browser setup (original code)
+                logger.info("🌐 Starting new UC browser...")
+                logger.info(f"   DISPLAY env: {os.environ.get('DISPLAY', 'not set')}")
+                logger.info(f"   XVFB env: {os.environ.get('XVFB', 'not set')}")
+                start = time.time()
+                
+                # Check if running in server environment
+                use_xvfb = os.environ.get('DISPLAY') is None or os.environ.get('XVFB') == '1'
+                logger.info(f"   use_xvfb: {use_xvfb}")
+                
+                self.scraper = UCGoogleShoppingScraper(use_xvfb=use_xvfb)
+                logger.info("   Scraper object created, setting up driver...")
+                
+                self.browser = self.scraper._setup_driver()
+                
+                elapsed = time.time() - start
+                logger.info(f"✅ Browser ready in {elapsed:.1f}s (xvfb={use_xvfb})")
+                
+                self.browser_start_time = time.time()
+                self.jobs_completed = 0
             
         except Exception as e:
             logger.error(f"❌ Failed to start browser: {e}", exc_info=True)
@@ -183,15 +236,24 @@ class PersistentBrowserWorker:
                 wait_time = 1 if i == 0 else 0.5  # First search needs more time
                 
                 try:
-                    products = self.scraper.search(
-                        search_term=item,
-                        zip_code=zip_code,  # ← USER'S ZIP CODE
-                        max_products=max_products,
-                        wait_time=wait_time,
-                        driver=self.browser,  # Reuse persistent browser
-                        close_driver=False,  # Keep browser open!
-                        prioritize_nearby=prioritize_nearby  # User's preference
-                    )
+                    if USING_SERPAPI:
+                        # SerpAPI has different parameters
+                        products = self.scraper.search(
+                            query=item,
+                            zipcode=zip_code,  # ← USER'S ZIP CODE
+                            prioritize_nearby=prioritize_nearby  # User's preference
+                        )
+                    else:
+                        # UC Browser scraper parameters
+                        products = self.scraper.search(
+                            search_term=item,
+                            zip_code=zip_code,  # ← USER'S ZIP CODE
+                            max_products=max_products,
+                            wait_time=wait_time,
+                            driver=self.browser,  # Reuse persistent browser
+                            close_driver=False,  # Keep browser open!
+                            prioritize_nearby=prioritize_nearby  # User's preference
+                        )
                     
                     results[item] = products
                     
@@ -319,10 +381,16 @@ class PersistentBrowserWorker:
                 time.sleep(5)
         
         # Cleanup
-        if self.browser:
+        if self.browser and not USING_SERPAPI:
             logger.info("🧹 Closing browser...")
             try:
                 self.browser.quit()
+            except:
+                pass
+        elif USING_SERPAPI:
+            logger.info("🧹 Closing SerpAPI scraper...")
+            try:
+                self.scraper.close()
             except:
                 pass
         

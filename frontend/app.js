@@ -512,19 +512,25 @@ function displayResults(data) {
             let bestPriceHTML = '';
             if (bestPriceProducts.length === 1) {
                 // Single store at best price
+                const product = bestPriceProducts[0];
+                const locationText = product.location ? `<div class="product-location">📍 ${product.location}</div>` : '';
                 bestPriceHTML = `
                     <div class="product-row best">
                         <div class="product-name">
                             <span class="best-badge">⭐ BEST PRICE</span>
-                            ${bestPriceProducts[0].name || bestPriceProducts[0].title || 'Product'}
+                            ${product.name || product.title || 'Product'}
                         </div>
                         <div class="product-price">$${bestPrice.toFixed(2)}</div>
-                        <div class="product-merchant">${bestPriceProducts[0].merchant}</div>
+                        <div class="product-merchant">
+                            ${product.merchant}
+                            ${locationText}
+                        </div>
                     </div>
                 `;
             } else {
                 // Multiple stores at best price
                 const firstStore = bestPriceProducts[0].merchant;
+                const firstLocation = bestPriceProducts[0].location ? `<div class="product-location">📍 ${bestPriceProducts[0].location}</div>` : '';
                 const otherCount = bestPriceProducts.length - 1;
                 const cardId = `card-${cartIndex}`;
                 
@@ -537,19 +543,26 @@ function displayResults(data) {
                         <div class="product-price">$${bestPrice.toFixed(2)}</div>
                         <div class="product-merchant">
                             ${firstStore}
+                            ${firstLocation}
                             <button class="btn-expand" onclick="toggleStores('${cardId}')" id="btn-${cardId}">
                                 + ${otherCount} other store${otherCount > 1 ? 's' : ''}
                             </button>
                         </div>
                     </div>
                     <div id="${cardId}" class="other-stores hidden">
-                        ${bestPriceProducts.slice(1).map(p => `
-                            <div class="product-row">
-                                <div class="product-name">${p.name || p.title || 'Product'}</div>
-                                <div class="product-price">$${p.price.toFixed(2)}</div>
-                                <div class="product-merchant">${p.merchant}</div>
-                            </div>
-                        `).join('')}
+                        ${bestPriceProducts.slice(1).map(p => {
+                            const loc = p.location ? `<div class="product-location">📍 ${p.location}</div>` : '';
+                            return `
+                                <div class="product-row">
+                                    <div class="product-name">${p.name || p.title || 'Product'}</div>
+                                    <div class="product-price">$${p.price.toFixed(2)}</div>
+                                    <div class="product-merchant">
+                                        ${p.merchant}
+                                        ${loc}
+                                    </div>
+                                </div>
+                            `;
+                        }).join('')}
                     </div>
                 `;
             }
