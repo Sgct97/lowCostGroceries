@@ -139,9 +139,11 @@ class SerpAPIGoogleShoppingScraper:
                 continue
             
             # Check if product is in-store or nearby
-            # Matches: "In store, Tampa", "Nearby, 8 mi", etc.
+            # Matches: "In store, Tampa", "Nearby, 8 mi", "Also nearby", etc.
             is_in_store = any(
-                "in store" in str(ext).lower() or "nearby" in str(ext).lower()
+                "in store" in str(ext).lower() or 
+                "nearby" in str(ext).lower() or 
+                "also nearby" in str(ext).lower()
                 for ext in extensions
             )
             
@@ -162,11 +164,14 @@ class SerpAPIGoogleShoppingScraper:
             # Add location info if in-store or nearby
             if is_in_store:
                 location_info = next(
-                    (ext for ext in extensions if "in store" in str(ext).lower() or "nearby" in str(ext).lower()), 
+                    (ext for ext in extensions if 
+                     "in store" in str(ext).lower() or 
+                     "nearby" in str(ext).lower() or 
+                     "also nearby" in str(ext).lower()), 
                     None
                 )
                 if location_info:
-                    # Extract from "In store, City" or "Nearby, X mi" format
+                    # Extract from "In store, City", "Nearby, X mi", or "Also nearby" format
                     product["location"] = location_info
                     logger.debug(f"   📍 {source}: {location_info}")
             
