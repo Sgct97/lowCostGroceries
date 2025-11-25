@@ -77,7 +77,7 @@ class SerpAPIGoogleShoppingScraper:
                 "hl": "en",
                 "gl": "us",
                 "api_key": self.api_key,
-                "num": 40  # Get up to 40 results
+                "num": 20  # Get up to 20 results (reduced to avoid junk)
             }
             
             # Execute search
@@ -138,9 +138,10 @@ class SerpAPIGoogleShoppingScraper:
             if not title or price <= 0 or not source:
                 continue
             
-            # Check if product is in-store
+            # Check if product is in-store or nearby
+            # Matches: "In store, Tampa", "Nearby, 8 mi", etc.
             is_in_store = any(
-                "in store" in str(ext).lower() 
+                "in store" in str(ext).lower() or "nearby" in str(ext).lower()
                 for ext in extensions
             )
             
@@ -158,14 +159,14 @@ class SerpAPIGoogleShoppingScraper:
                 "location": None  # Will be populated if in-store
             }
             
-            # Add location info if in-store
+            # Add location info if in-store or nearby
             if is_in_store:
                 location_info = next(
-                    (ext for ext in extensions if "in store" in str(ext).lower()), 
+                    (ext for ext in extensions if "in store" in str(ext).lower() or "nearby" in str(ext).lower()), 
                     None
                 )
                 if location_info:
-                    # Extract just the city from "In store, City" format
+                    # Extract from "In store, City" or "Nearby, X mi" format
                     product["location"] = location_info
                     logger.debug(f"   📍 {source}: {location_info}")
             
