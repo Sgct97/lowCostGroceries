@@ -63,8 +63,8 @@ class SerpAPIGoogleShoppingScraper:
         """
         try:
             # Format query for nearby results (SerpAPI format)
-            # Critical: Must use "query, ZIP nearby" format to get in-store results
-            full_query = f"{query}, {zipcode} nearby"
+            # Critical: Must use "query near, ZIP nearby" format to get in-store results
+            full_query = f"{query.lower()} near, {zipcode} nearby"
             
             logger.info(f"🔍 SerpAPI search: '{full_query}' (prioritize_nearby={prioritize_nearby})")
             
