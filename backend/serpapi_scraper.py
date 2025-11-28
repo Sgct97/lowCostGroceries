@@ -14,6 +14,8 @@ Key Features:
 
 import os
 import logging
+import time
+import csv
 from typing import List, Dict, Optional
 from serpapi import GoogleSearch
 from dotenv import load_dotenv
@@ -22,6 +24,42 @@ from dotenv import load_dotenv
 load_dotenv()
 
 logger = logging.getLogger(__name__)
+
+# Load ZIP code database for ZIP and city fallback
+def _load_zip_database():
+    """
+    Load ZIP database and create prefix lookup for fallback.
+    
+    Returns:
+        Dictionary mapping ZIP prefix (3 digits) to (first_zipcode, city, state)
+        Example: "102" → ("10201", "New York", "New York")
+    """
+    zip_lookup = {}
+    csv_path = os.path.join(os.path.dirname(__file__), 'zip_database.csv')
+    
+    try:
+        with open(csv_path, 'r') as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                zipcode = row.get('zipcode', '').strip()
+                city = row.get('city', '').strip()
+                state = row.get('state', '').strip()
+                
+                if zipcode and city and state and len(zipcode) == 5:
+                    prefix = zipcode[:3]  # First 3 digits
+                    # Only store first occurrence of each prefix
+                    # First ZIP in each prefix is typically a major city
+                    if prefix not in zip_lookup:
+                        zip_lookup[prefix] = (zipcode, city, state)
+        
+        logger.info(f"✅ Loaded ZIP database: {len(zip_lookup)} prefixes")
+    except Exception as e:
+        logger.warning(f"⚠️  Could not load ZIP database: {e}")
+    
+    return zip_lookup
+
+# Global ZIP lookup (loaded once at module init)
+ZIP_PREFIX_LOOKUP = _load_zip_database()
 
 class SerpAPIGoogleShoppingScraper:
     """
@@ -38,6 +76,95 @@ class SerpAPIGoogleShoppingScraper:
             raise ValueError("SERPAPI_KEY environment variable not set")
         
         logger.info("✅ SerpAPI scraper initialized")
+    
+    def _search_by_city(self, query: str, zipcode: str, city: str, state: str, prioritize_nearby: bool) -> List[Dict]:
+        """
+        Search SerpAPI using city name for location, but keeping original ZIP in query.
+        This is used as a fallback when ZIP is unsupported.
+        
+        Args:
+            query: Search query
+            zipcode: Original ZIP code (kept in query string)
+            city: City name (used in location parameter)
+            state: State name (used in location parameter)
+            prioritize_nearby: Whether to prioritize nearby results
+            
+        Returns:
+            List of product dictionaries
+        """
+        try:
+            # Keep original query format with ZIP, only change location parameter
+            full_query = f"{query.lower()} near, {zipcode} nearby"
+            
+            logger.info(f"🔍 SerpAPI city search: '{full_query}' (location: {city}, {state})")
+            
+            # Build SerpAPI parameters - ONLY location uses city/state
+            params = {
+                "engine": "google_shopping",
+                "q": full_query,
+                "location": f"{city}, {state}, United States",
+                "api_key": self.api_key,
+                "num": 20,
+                "no_cache": "true"
+            }
+            
+            # Execute search
+            search = GoogleSearch(params)
+            results = search.get_dict()
+            
+            # Check for errors
+            if "error" in results:
+                logger.error(f"❌ City search error: {results.get('error')}")
+                return []
+            
+            # Extract and filter products (same logic as ZIP search)
+            shopping_results = results.get("shopping_results", [])
+            
+            if not shopping_results:
+                logger.warning(f"⚠️  No results for city search: {city}, {state}")
+                return []
+            
+            logger.info(f"📦 Got {len(shopping_results)} results from city search")
+            
+            # Parse and filter products (reuse existing method)
+            products = self._parse_products(shopping_results, prioritize_nearby)
+            
+            logger.info(f"✅ City search returned {len(products)} products")
+            
+            return products[:20]  # Limit to 20
+            
+        except Exception as e:
+            logger.error(f"❌ City search exception: {e}")
+            return []
+    
+    def _get_nearby_zips(self, zipcode: str, max_attempts: int = 10) -> list:
+        """
+        Get nearby ZIP codes in expanding radius for fallback when original ZIP is unsupported.
+        
+        Args:
+            zipcode: Original 5-digit ZIP code
+            max_attempts: Maximum number of fallback ZIPs to try (default: 10)
+            
+        Returns:
+            List of nearby ZIP codes in expanding pattern: [zip-1, zip+1, zip-2, zip+2, ...]
+            
+        Examples:
+            10281 → [10280, 10282, 10279, 10283, 10278, 10284, 10277, 10285, 10276, 10286]
+            60614 → [60613, 60615, 60612, 60616, 60611, 60617, 60610, 60618, 60609, 60619]
+        """
+        try:
+            zip_int = int(zipcode)
+            nearby = []
+            
+            # Generate ZIPs in expanding radius pattern
+            for offset in range(1, (max_attempts // 2) + 1):
+                nearby.append(str(zip_int - offset).zfill(5))  # ZIP - offset
+                nearby.append(str(zip_int + offset).zfill(5))  # ZIP + offset
+            
+            return nearby[:max_attempts]  # Limit to max_attempts
+        except (ValueError, TypeError):
+            logger.warning(f"⚠️  Cannot generate nearby ZIPs for non-numeric ZIP: {zipcode}")
+            return []
     
     def search(
         self, 
@@ -94,7 +221,42 @@ class SerpAPIGoogleShoppingScraper:
             if "error" in results:
                 error_msg = results.get("error", "Unknown error")
                 
-                # Retry logic for rate limiting or temporary failures
+                # Check if this is an "Unsupported location" error (permanent)
+                if "Unsupported" in error_msg and "location" in error_msg:
+                    logger.warning(f"⚠️  SerpAPI error: ZIP {zipcode} is unsupported - {error_msg}")
+                    
+                    # Two-level fallback (only on first attempt)
+                    if _retry_count == 0:
+                        # Extract ZIP prefix (first 3 digits)
+                        zip_prefix = zipcode[:3] if len(zipcode) >= 3 else None
+                        
+                        if zip_prefix and zip_prefix in ZIP_PREFIX_LOOKUP:
+                            fallback_zip, city, state = ZIP_PREFIX_LOOKUP[zip_prefix]
+                            
+                            # Level 1: Try first ZIP with same prefix
+                            if fallback_zip and fallback_zip != zipcode:
+                                logger.info(f"🔄 Fallback Level 1: ZIP {zipcode} → ZIP {fallback_zip}")
+                                zip_results = self.search(query, fallback_zip, prioritize_nearby, _retry_count=99)
+                                if zip_results:
+                                    logger.info(f"✅ ZIP fallback to {fallback_zip} successful! Found {len(zip_results)} products.")
+                                    return zip_results
+                                else:
+                                    logger.warning(f"⚠️  ZIP {fallback_zip} also failed or had no results")
+                            
+                            # Level 2: Try city search as final fallback
+                            logger.info(f"🔄 Fallback Level 2: ZIP {zipcode} → {city}, {state} (city search)")
+                            city_results = self._search_by_city(query, zipcode, city, state, prioritize_nearby)
+                            if city_results:
+                                logger.info(f"✅ City fallback to {city}, {state} successful! Found {len(city_results)} products.")
+                                return city_results
+                        
+                        logger.error(f"❌ All fallback attempts failed. No results for unsupported ZIP {zipcode}")
+                        return []
+                    else:
+                        # Already in a fallback attempt, don't recurse further
+                        return []
+                
+                # For other errors (rate limiting, API down, etc), use retry logic
                 if _retry_count < 2:  # Max 3 attempts
                     wait_time = 2 ** _retry_count  # Exponential backoff: 1s, 2s
                     logger.warning(f"⚠️  SerpAPI error: {error_msg}. Retrying in {wait_time}s...")
