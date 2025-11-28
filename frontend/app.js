@@ -26,7 +26,8 @@ const state = {
     currentStep: 1,
     jobId: null,
     pollInterval: null,
-    zipCode: null
+    zipCode: null,
+    pendingSuggestions: []  // Items waiting for AI suggestions
 };
 
 // ============================================================================
@@ -132,7 +133,6 @@ function displaySuggestions(data) {
     const suggested = data.suggested;
     const mainCard = createSuggestionCard(
         suggested.name,
-        suggested.emoji || '🛒',
         true  // is best match
     );
     suggestionsContent.appendChild(mainCard);
@@ -142,7 +142,6 @@ function displaySuggestions(data) {
         data.alternatives.slice(0, 3).forEach(alt => {
             const altCard = createSuggestionCard(
                 alt.name,
-                alt.emoji || '🛒',
                 false
             );
             suggestionsContent.appendChild(altCard);
@@ -156,24 +155,40 @@ function displaySuggestions(data) {
 /**
  * Create suggestion card element
  */
-function createSuggestionCard(name, emoji, isBest) {
+function createSuggestionCard(name, isBest, pendingId = null) {
     const card = document.createElement('div');
     card.className = 'suggestion-card';
     card.innerHTML = `
-        <span class="suggestion-emoji">${emoji}</span>
         <span class="suggestion-name">${name}</span>
         ${isBest ? '<span class="suggestion-badge">Best Match</span>' : ''}
     `;
     
-    card.addEventListener('click', () => addToCart(name, emoji));
+    card.addEventListener('click', () => {
+        addToCart(name);
+        // Remove this pending item from queue after selection
+        if (pendingId !== null) {
+            removePendingItem(pendingId);
+        }
+    });
     
     return card;
 }
 
 /**
+ * Remove a pending suggestion item after user selection
+ */
+function removePendingItem(pendingId) {
+    const index = state.pendingSuggestions.findIndex(p => p.id === pendingId);
+    if (index !== -1) {
+        state.pendingSuggestions.splice(index, 1);
+        renderPendingSuggestions();
+    }
+}
+
+/**
  * Add item to cart
  */
-function addToCart(name, emoji) {
+function addToCart(name) {
     // Check if already in cart
     if (state.cart.some(item => item.name === name)) {
         showToast('Item already in cart!');
@@ -187,17 +202,14 @@ function addToCart(name, emoji) {
     }
     
     // Add to cart
-    state.cart.push({ name, emoji });
-    
-    // Clear input and suggestions
-    itemInput.value = '';
-    suggestionsDiv.classList.add('hidden');
-    addManualBtn.disabled = true;
-    addManualBtn.style.display = 'block';  // Show button again for next item
+    state.cart.push({ name });
     
     // Update UI
     renderCart();
     showToast('Added to cart!', 1500);
+    
+    // Keep input focused for next item
+    itemInput.focus();
     
     // Focus back on input for next item
     itemInput.focus();
@@ -241,7 +253,6 @@ function renderCart() {
     } else {
         cartItems.innerHTML = state.cart.map((item, index) => `
             <div class="cart-item">
-                <span class="cart-item-emoji">${item.emoji}</span>
                 <span class="cart-item-name">${item.name}</span>
                 <button class="cart-item-remove" onclick="removeFromCart(${index})">
                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -254,47 +265,144 @@ function renderCart() {
 }
 
 /**
- * Handle item input with debouncing
+ * Submit item for AI processing (happens immediately, no debounce)
  */
-const debouncedSearch = debounce(async (value) => {
-    if (value.length < 2) {
+async function submitItemForAI(originalText) {
+    if (originalText.length < 2) {
+        return;
+    }
+    
+    // Create pending item
+    const pendingId = Date.now();
+    const pendingItem = {
+        id: pendingId,
+        originalText: originalText,
+        status: 'loading',
+        suggestions: null
+    };
+    
+    state.pendingSuggestions.push(pendingItem);
+    renderPendingSuggestions();
+    
+    // Clear input immediately so user can type next item
+    itemInput.value = '';
+    itemInput.focus();
+    
+    // Fetch AI suggestions in background
+    try {
+        const suggestions = await fetchSuggestions(originalText);
+        
+        // Update pending item with results
+        const item = state.pendingSuggestions.find(p => p.id === pendingId);
+        if (item) {
+            item.status = 'complete';
+            item.suggestions = suggestions;
+            renderPendingSuggestions();
+        }
+    } catch (error) {
+        // Update pending item with error
+        const item = state.pendingSuggestions.find(p => p.id === pendingId);
+        if (item) {
+            item.status = 'error';
+            renderPendingSuggestions();
+        }
+    }
+}
+
+/**
+ * Render all pending suggestion cards
+ */
+function renderPendingSuggestions() {
+    if (state.pendingSuggestions.length === 0) {
         suggestionsDiv.classList.add('hidden');
         return;
     }
     
-    // Show loading state
     suggestionsDiv.classList.remove('hidden');
-    suggestionsContent.innerHTML = '<div style="padding: 20px; text-align: center; color: #9E9E9E;">Thinking...</div>';
+    suggestionsContent.innerHTML = '';
     
-    const data = await fetchSuggestions(value);
-    displaySuggestions(data);
-}, CONFIG.DEBOUNCE_DELAY);
+    state.pendingSuggestions.forEach(pending => {
+        const pendingCard = document.createElement('div');
+        pendingCard.className = 'pending-item-card';
+        
+        if (pending.status === 'loading') {
+            pendingCard.innerHTML = `
+                <div class="loading-state">
+                    <div class="spinner"></div>
+                    <div class="pending-text">
+                        <strong>"${pending.originalText}"</strong>
+                        <div style="font-size: 12px; color: var(--gray-500); margin-top: 4px;">Getting AI suggestions...</div>
+                    </div>
+                </div>
+            `;
+        } else if (pending.status === 'complete' && pending.suggestions) {
+            const data = pending.suggestions;
+            
+            // Remove pending item header, show suggestions
+            pendingCard.innerHTML = `
+                <div class="suggestions-ready">
+                    <div style="font-size: 12px; color: var(--gray-600); margin-bottom: 8px; font-weight: 500;">
+                        ✨ Suggestions for "${pending.originalText}"
+                    </div>
+                </div>
+            `;
+            
+            // Add main suggestion
+            if (data.suggested) {
+                const mainCard = createSuggestionCard(
+                    data.suggested.name,
+                    true,
+                    pending.id
+                );
+                pendingCard.appendChild(mainCard);
+            }
+            
+            // Add alternatives
+            if (data.alternatives && data.alternatives.length > 0) {
+                data.alternatives.slice(0, 3).forEach(alt => {
+                    const altCard = createSuggestionCard(
+                        alt.name,
+                        false,
+                        pending.id
+                    );
+                    pendingCard.appendChild(altCard);
+                });
+            }
+        } else if (pending.status === 'error') {
+            pendingCard.innerHTML = `
+                <div class="error-state">
+                    ❌ Failed to get suggestions for "${pending.originalText}"
+                    <button onclick="retryPending(${pending.id})" class="retry-btn">Retry</button>
+                </div>
+            `;
+        }
+        
+        suggestionsContent.appendChild(pendingCard);
+    });
+}
 
 // Event listeners for Step 1
 itemInput.addEventListener('input', (e) => {
     const value = e.target.value.trim();
+    // Just enable/disable the button, no AI calls yet
     addManualBtn.disabled = value.length < 2;
-    
-    if (value.length >= 2) {
-        addManualBtn.style.display = 'block';  // Show button while typing
-        debouncedSearch(value);
-    } else {
-        suggestionsDiv.classList.add('hidden');
-        addManualBtn.disabled = true;
-    }
+    addManualBtn.textContent = value.length >= 2 ? '→ Get AI Suggestions' : '+ Add Item';
 });
 
 itemInput.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
-        // Prevent adding raw text - user should click a suggestion
         e.preventDefault();
+        const value = itemInput.value.trim();
+        if (value.length >= 2) {
+            submitItemForAI(value);
+        }
     }
 });
 
 addManualBtn.addEventListener('click', () => {
-    // Only add manually if suggestions are hidden (AI failed or no suggestions)
-    if (suggestionsDiv.classList.contains('hidden')) {
-        addToCart(itemInput.value.trim(), '🛒');
+    const value = itemInput.value.trim();
+    if (value.length >= 2) {
+        submitItemForAI(value);
     }
 });
 
@@ -489,7 +597,6 @@ function displayResults(data) {
             resultsTable.innerHTML += `
                 <div class="result-card">
                     <div class="result-header">
-                        <span class="result-item-emoji">${cartItem.emoji}</span>
                         <span class="result-item-name">${cartItem.name}</span>
                     </div>
                     <div class="result-products">
@@ -570,7 +677,6 @@ function displayResults(data) {
             resultsTable.innerHTML += `
                 <div class="result-card">
                     <div class="result-header">
-                        <span class="result-item-emoji">${cartItem.emoji}</span>
                         <span class="result-item-name">${cartItem.name}</span>
                     </div>
                     <div class="result-products">

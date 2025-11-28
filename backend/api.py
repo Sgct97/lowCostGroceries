@@ -233,10 +233,17 @@ async def clarify_product_endpoint(request: ClarifyRequest):
         
         logger.info(f"✅ AI suggested: '{result['suggested']['name']}' ({processing_time:.2f}s)")
         
+        # Validate alternatives - filter out any that aren't valid dicts
+        alternatives = result.get('alternatives', [])
+        if isinstance(alternatives, list):
+            alternatives = [alt for alt in alternatives if isinstance(alt, dict) and 'name' in alt]
+        else:
+            alternatives = []
+        
         return {
             "status": "success",
             "suggested": result.get('suggested', {}),
-            "alternatives": result.get('alternatives', []),
+            "alternatives": alternatives,
             "processing_time": round(processing_time, 2)
         }
         
@@ -526,11 +533,60 @@ async def get_product(product_id: str):
 @app.get("/health")
 async def health_check():
     """Detailed health check"""
+    redis_healthy = False
+    queue_size = 0
+    
+    if redis_client:
+        try:
+            redis_client.ping()
+            redis_healthy = True
+            queue_size = redis_client.llen('scrape_queue')
+        except:
+            pass
+    
     return {
         "status": "healthy",
         "timestamp": datetime.now().isoformat(),
         "cache_size": len(cache),
-        "uptime": "unknown"  # TODO: Track uptime
+        "redis": {
+            "connected": redis_healthy,
+            "queue_size": queue_size
+        }
+    }
+
+@app.get("/api/monitor")
+async def monitor_endpoint():
+    """
+    Production monitoring endpoint
+    Shows real-time system health
+    """
+    redis_status = "disconnected"
+    queue_size = 0
+    
+    if redis_client:
+        try:
+            redis_client.ping()
+            redis_status = "connected"
+            queue_size = redis_client.llen('scrape_queue')
+        except Exception as e:
+            redis_status = f"error: {str(e)}"
+    
+    return {
+        "timestamp": datetime.now().isoformat(),
+        "api": {
+            "status": "online",
+            "version": "1.0.0"
+        },
+        "redis": {
+            "status": redis_status,
+            "queue_size": queue_size,
+            "host": redis_host,
+            "port": redis_port
+        },
+        "cache": {
+            "size": len(cache),
+            "ttl_seconds": CACHE_TTL
+        }
     }
 
 

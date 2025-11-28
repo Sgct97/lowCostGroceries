@@ -43,7 +43,8 @@ class SerpAPIGoogleShoppingScraper:
         self, 
         query: str, 
         zipcode: str, 
-        prioritize_nearby: bool = True
+        prioritize_nearby: bool = True,
+        _retry_count: int = 0
     ) -> List[Dict]:
         """
         Search Google Shopping for products.
@@ -52,6 +53,7 @@ class SerpAPIGoogleShoppingScraper:
             query: Product search query (e.g., "whole milk gallon")
             zipcode: ZIP code for location-based search
             prioritize_nearby: If True, filter to in-store only. If False, include all sources.
+            _retry_count: Internal retry counter (do not set manually)
         
         Returns:
             List of product dictionaries with keys:
@@ -61,12 +63,15 @@ class SerpAPIGoogleShoppingScraper:
                 - rating: Product rating (optional)
                 - review_count: Number of reviews (optional)
         """
+        import time
+        
         try:
             # Format query for nearby results (SerpAPI format)
             # Critical: Must use "query near, ZIP nearby" format to get in-store results
             full_query = f"{query.lower()} near, {zipcode} nearby"
             
-            logger.info(f"🔍 SerpAPI search: '{full_query}' (prioritize_nearby={prioritize_nearby})")
+            attempt_info = f" (attempt {_retry_count + 1}/3)" if _retry_count > 0 else ""
+            logger.info(f"🔍 SerpAPI search: '{full_query}' (prioritize_nearby={prioritize_nearby}){attempt_info}")
             
             # Build SerpAPI parameters
             params = {
@@ -77,7 +82,8 @@ class SerpAPIGoogleShoppingScraper:
                 "hl": "en",
                 "gl": "us",
                 "api_key": self.api_key,
-                "num": 20  # Get up to 20 results (reduced to avoid junk)
+                "num": 20,  # Get up to 20 results (reduced to avoid junk)
+                "no_cache": "true"  # Force fresh results to avoid stale cache
             }
             
             # Execute search
@@ -87,14 +93,30 @@ class SerpAPIGoogleShoppingScraper:
             # Check for errors
             if "error" in results:
                 error_msg = results.get("error", "Unknown error")
-                logger.error(f"❌ SerpAPI error: {error_msg}")
-                return []
+                
+                # Retry logic for rate limiting or temporary failures
+                if _retry_count < 2:  # Max 3 attempts
+                    wait_time = 2 ** _retry_count  # Exponential backoff: 1s, 2s
+                    logger.warning(f"⚠️  SerpAPI error: {error_msg}. Retrying in {wait_time}s...")
+                    time.sleep(wait_time)
+                    return self.search(query, zipcode, prioritize_nearby, _retry_count + 1)
+                else:
+                    logger.error(f"❌ SerpAPI error after 3 attempts: {error_msg}")
+                    return []
             
             # Extract shopping results
             shopping_results = results.get("shopping_results", [])
             
             if not shopping_results:
                 logger.warning(f"⚠️  No results found for '{query}' in {zipcode}")
+                
+                # Retry if we got no results from SerpAPI at all
+                if _retry_count < 2:
+                    wait_time = 2 ** _retry_count
+                    logger.warning(f"⚠️  Retrying in {wait_time}s...")
+                    time.sleep(wait_time)
+                    return self.search(query, zipcode, prioritize_nearby, _retry_count + 1)
+                
                 return []
             
             logger.info(f"📦 Got {len(shopping_results)} total results from SerpAPI")
@@ -103,6 +125,13 @@ class SerpAPIGoogleShoppingScraper:
             products = self._parse_products(shopping_results, prioritize_nearby)
             
             logger.info(f"✅ Returning {len(products)} products (after filtering)")
+            
+            # CRITICAL: Retry if filtering returned 0 products (when prioritizing nearby)
+            if len(products) == 0 and prioritize_nearby and _retry_count < 2:
+                wait_time = 2 ** _retry_count
+                logger.warning(f"⚠️  Filtering returned 0 in-store products. Retrying in {wait_time}s...")
+                time.sleep(wait_time)
+                return self.search(query, zipcode, prioritize_nearby, _retry_count + 1)
             
             return products
         
@@ -146,6 +175,10 @@ class SerpAPIGoogleShoppingScraper:
                 "also nearby" in str(ext).lower()
                 for ext in extensions
             )
+            
+            # DEBUG: Log what extensions we're seeing
+            if extensions:
+                logger.info(f"   🔍 {source}: extensions={extensions}, is_in_store={is_in_store}")
             
             # Filter based on prioritize_nearby setting
             if prioritize_nearby and not is_in_store:
